@@ -1,14 +1,5 @@
-# c-utils
 
-Personal utilities for C.
 
-## Table of contents
-
-[Measure duration](#measurement-of-duration)
-
-## Measurement of duration
-
-``` C
 void measure-duration() {
   struct timespec start, end;
   double duration;
@@ -20,6 +11,5 @@ void measure-duration() {
   duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
   printf("Duration: %f seconds\n", duration);
 }
-```
 
-(end of README)
+// end
