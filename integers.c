@@ -1,11 +1,10 @@
 #include <stdio.h>
-#include <stdint.h>
 
 /* Calculate GCD
  (v1 available in occisn/c-utils GitHub repository)*/
-uint64_t gcd(uint64_t a, uint64_t b) {
+int gcd(int a, int b) {
     while (b != 0) {
-        uint64_t temp = b;
+        int temp = b;
         b = a % b;
         a = temp;
     }
@@ -14,7 +13,7 @@ uint64_t gcd(uint64_t a, uint64_t b) {
 
 /* Calculate LCM
  (v1 available in occisn/c-utils GitHub repository)*/
-uint64_t lcm(uint64_t a, uint64_t b) {
+int lcm(int a, int b) {
     return (a * b) / gcd(a, b);  
 }
 
