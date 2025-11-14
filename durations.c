@@ -6,7 +6,7 @@ void measure_duration(void) {
   double duration;
   clock_gettime(CLOCK_MONOTONIC, &start);
 
-  // do nothing
+  // do something
 
   clock_gettime(CLOCK_MONOTONIC, &end);
   duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
