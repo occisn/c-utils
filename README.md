@@ -4,9 +4,18 @@ Personal utilities for C.
 
 This repository is not supposed to be a .h library, or forked and included in another project. It is more a kind of shelf with available stand-alone functions.
 
+When relevant, functions are illustrated with associated `SHOW-_xxx` functions.
+
 File **integers.c**  
-   - functions `lcm__int` and `gcd__int`  
-   - function `largest_prime_factor__uint64`
+   - functions `lcm__int` and `gcd__int`
+   
+File **integer-primes.c**  
+   - function `largest_prime_factor__uint64`  
+   - function `factorize__uint64`   
+   - function `is_prime__uint64`  
+   - functions `sieve_eratosthenes__simple__uint64` and `sieve_eratosthenes__odd_bit__uint64`  
+   - function `list_of_primes_below__uint64`   
+   - function `nth_prime__uint64`
       
 File **durations.c**  
    - function `measure_duration`
