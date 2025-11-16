@@ -6,6 +6,7 @@ This repository is not supposed to be a .h library, or forked and included in an
 
 File **integers.c**  
    - functions `lcm__int` and `gcd__int`  
+   - function `largest_prime_factor__uint64`
       
 File **durations.c**  
    - function `measure_duration`
