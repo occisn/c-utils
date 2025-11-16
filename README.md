@@ -5,8 +5,7 @@ Personal utilities for C.
 This repository is not supposed to be a .h library, or forked and included in another project. It is more a kind of shelf with available stand-alone functions.
 
 File **integers.c**  
-   - functions `lcm` and `gcd`
-   
+   - functions `lcm__int` and `gcd__int`  
       
 File **durations.c**  
    - function `measure_duration`
