@@ -9,7 +9,7 @@ When relevant, functions are illustrated with associated `SHOW-_xxx` functions.
 File **integers.c**  
    - functions `lcm__int` and `gcd__int`
    
-File **integer-primes.c**  
+File **integer_primes.c**  
    - function `largest_prime_factor__uint64`  
    - function `factorize__uint64`   
    - function `is_prime__uint64`  

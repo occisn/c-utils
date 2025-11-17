@@ -5,6 +5,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 #include <string.h> // for memset
+#include "integers_primes.h"
 
 // ===
 // ===
@@ -604,17 +605,6 @@ int SHOW__nth_prime__uint64(void)
     return EXIT_FAILURE;
   }
   printf("%" PRIu64 "-th prime is %" PRIu64 "\n", n, nth_prime);
-  return EXIT_SUCCESS;
-}
-
-
-// ===
-// ===
-// === Fake main
-// ===
-
-int main(void) {
-  // nothing
   return EXIT_SUCCESS;
 }
 
