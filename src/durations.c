@@ -1,8 +1,9 @@
+#include "durations.h"
 #include <stdio.h>
 #include <time.h>
-#include "durations.h"
 
-void measure_duration(void) {
+void measure_duration(void)
+{
   struct timespec start, end;
   double duration;
   clock_gettime(CLOCK_MONOTONIC, &start);

@@ -1,3 +1,4 @@
+.gitignore
 *.org
 *.html
 *.fasl
@@ -6,6 +7,5 @@
 *.eln
 *.eln.old
 *.o
-.clangd
-.projectile
-
+**/build
+**/.cache

@@ -1,0 +1,78 @@
+[
+ {
+  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-Isrc",
+   "-Itests/unity",
+   "-c",
+   "src/durations.c",
+   "-o",
+   "build/durations.o"
+  ],
+  "file": "src/durations.c"
+ },
+ {
+  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-Isrc",
+   "-Itests/unity",
+   "-c",
+   "src/integers.c",
+   "-o",
+   "build/integers.o"
+  ],
+  "file": "src/integers.c"
+ },
+ {
+  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-Isrc",
+   "-Itests/unity",
+   "-c",
+   "src/integers_primes.c",
+   "-o",
+   "build/integers_primes.o"
+  ],
+  "file": "src/integers_primes.c"
+ },
+ {
+  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-Isrc",
+   "-Itests/unity",
+   "-c",
+   "src/main.c",
+   "-o",
+   "build/main.o"
+  ],
+  "file": "src/main.c"
+ }
+]

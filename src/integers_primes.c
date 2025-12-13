@@ -1,11 +1,10 @@
-#include <stdint.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
-#include <inttypes.h>
-#include <stdbool.h>
-#include <string.h> // for memset
 #include "integers_primes.h"
+#include <inttypes.h>
+#include <math.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h> // for memset
 
 // ===
 // ===
@@ -14,7 +13,8 @@
 
 /* Calculate largest prime factor of n (uint64_t)
    (v1 available in occisn/c-utils GitHub repository)*/
-uint64_t largest_prime_factor__uint64(uint64_t n) {
+uint64_t largest_prime_factor__uint64(uint64_t n)
+{
   uint64_t largest = 0;
 
   // Remove all factors of 2
@@ -43,8 +43,7 @@ uint64_t largest_prime_factor__uint64(uint64_t n) {
     else if (n % (i + 2) == 0) {
       largest = i + 2;
       n /= (i + 2);
-    }
-    else {
+    } else {
       i += 6;
     }
   }
@@ -85,24 +84,28 @@ uint64_t largest_prime_factor__uint64(uint64_t n) {
  *      printf("%llu\n", (unsigned long long)factors[i]);
  *  }
  */
-uint64_t *factorize__uint64(uint64_t n, size_t *count_out, bool multiplicity) {
+uint64_t *factorize__uint64(uint64_t n, size_t *count_out, bool multiplicity)
+{
   *count_out = 0;
-  if (n < 2) return NULL;
+  if (n < 2)
+    return NULL;
 
   size_t cap = 8;
   uint64_t *factors = malloc(cap * sizeof(uint64_t));
-  if (!factors) return NULL;
+  if (!factors)
+    return NULL;
 
 #define PUSH_FACTOR(p)                                          \
   do {                                                          \
     if (*count_out == cap) {                                    \
       cap *= 2;                                                 \
       uint64_t *tmp = realloc(factors, cap * sizeof(uint64_t)); \
-      if (!tmp) goto failure;                                   \
+      if (!tmp)                                                 \
+        goto failure;                                           \
       factors = tmp;                                            \
     }                                                           \
     factors[(*count_out)++] = (p);                              \
-  } while(0)
+  } while (0)
 
   // (1) factor out 2
   if (multiplicity) {
@@ -112,7 +115,8 @@ uint64_t *factorize__uint64(uint64_t n, size_t *count_out, bool multiplicity) {
     }
   } else if ((n & 1ULL) == 0) {
     PUSH_FACTOR(2);
-    while ((n & 1ULL) == 0) n >>= 1;
+    while ((n & 1ULL) == 0)
+      n >>= 1;
   }
 
   // (2) odd primes
@@ -126,7 +130,8 @@ uint64_t *factorize__uint64(uint64_t n, size_t *count_out, bool multiplicity) {
       }
     } else if (n % p == 0) {
       PUSH_FACTOR(p);
-      while (n % p == 0) n /= p;
+      while (n % p == 0)
+        n /= p;
       limit = (uint64_t)sqrtl((long double)n);
     }
   }
@@ -139,12 +144,13 @@ uint64_t *factorize__uint64(uint64_t n, size_t *count_out, bool multiplicity) {
 #undef PUSH_FACTOR
   return factors;
 
- failure:
+failure:
   free(factors);
-  return NULL; 
+  return NULL;
 }
 
-int SHOW__factorize__uint64(void) {
+int SHOW__factorize__uint64(void)
+{
   // const uint64_t n = 18446744073709551615ULL;  // 2^64 - 1
   // const uint64_t n = 9223372036854775808ULL; // 2^63
   const uint64_t n = 614889782588491410ULL; // 64-bit inteeger with the most different prime factors
@@ -182,10 +188,14 @@ int SHOW__factorize__uint64(void) {
  *    const uint64_t n = 17ULL;
  *    printf("%" PRIu64 " is %s\n", n, is_prime__uint64(n) ? "prime" : "not prime");
  */
-bool is_prime__uint64(uint64_t n) {
-  if (n < 2) return false;       // 0 and 1 are not prime
-  if (n <= 3) return true;       // 2 and 3 are prime
-  if ((n % 2) == 0 || (n % 3) == 0) return false;
+bool is_prime__uint64(uint64_t n)
+{
+  if (n < 2)
+    return false; // 0 and 1 are not prime
+  if (n <= 3)
+    return true; // 2 and 3 are prime
+  if ((n % 2) == 0 || (n % 3) == 0)
+    return false;
 
   // Test divisors of the form 6k ± 1 up to sqrt(n)
   uint64_t limit = (uint64_t)sqrtl((long double)n);
@@ -196,9 +206,10 @@ bool is_prime__uint64(uint64_t n) {
   return true;
 }
 
-int SHOW__is_prime__uint64(void) {
+int SHOW__is_prime__uint64(void)
+{
   uint64_t numbers[] = {2, 3, 4, 17, 19, 20, 97, 18446744073709551557ULL};
-  for (size_t i = 0; i < sizeof(numbers)/sizeof(numbers[0]); i++) {
+  for (size_t i = 0; i < sizeof(numbers) / sizeof(numbers[0]); i++) {
     uint64_t n = numbers[i];
     printf("%" PRIu64 " is %s\n", n, is_prime__uint64(n) ? "prime" : "not prime");
   }
@@ -221,14 +232,18 @@ int SHOW__is_prime__uint64(void) {
  *         Returns NULL if n < 2 or memory allocation fails.
  *         Caller is responsible for freeing the array.
  */
-bool *sieve_eratosthenes__simple__uint64(uint64_t n, size_t *prime_count_out) {
+bool *sieve_eratosthenes__simple__uint64(uint64_t n, size_t *prime_count_out)
+{
   *prime_count_out = 0;
-  if (n < 2) return NULL;
+  if (n < 2)
+    return NULL;
 
   bool *is_prime = malloc(n * sizeof(bool));
-  if (!is_prime) return NULL;
+  if (!is_prime)
+    return NULL;
 
-  for (uint64_t i = 0; i < n; i++) is_prime[i] = true;
+  for (uint64_t i = 0; i < n; i++)
+    is_prime[i] = true;
   is_prime[0] = is_prime[1] = false;
 
   uint64_t limit = (uint64_t)sqrtl((long double)n);
@@ -243,7 +258,8 @@ bool *sieve_eratosthenes__simple__uint64(uint64_t n, size_t *prime_count_out) {
   // Count the primes
   size_t count = 0;
   for (uint64_t i = 2; i < n; i++) {
-    if (is_prime[i]) count++;
+    if (is_prime[i])
+      count++;
   }
 
   *prime_count_out = count;
@@ -251,7 +267,8 @@ bool *sieve_eratosthenes__simple__uint64(uint64_t n, size_t *prime_count_out) {
 }
 
 /* List of primes below n */
-int SHOW_1__sieve_eratosthenes__simple__uint64(void) {
+int SHOW_1__sieve_eratosthenes__simple__uint64(void)
+{
   const uint64_t n = 100;
   size_t prime_count;
   bool *is_prime = sieve_eratosthenes__simple__uint64(n, &prime_count);
@@ -263,7 +280,8 @@ int SHOW_1__sieve_eratosthenes__simple__uint64(void) {
 
   printf("Primes below %" PRIu64 " (%zu primes):\n", n, prime_count);
   for (uint64_t i = 2; i < n; i++) {
-    if (is_prime[i]) printf("%" PRIu64 " ", i);
+    if (is_prime[i])
+      printf("%" PRIu64 " ", i);
   }
   printf("\n");
 
@@ -272,11 +290,12 @@ int SHOW_1__sieve_eratosthenes__simple__uint64(void) {
 }
 
 /* The n-th prime */
-int SHOW_2__sieve_eratosthenes__simple__uint64(void) {
+int SHOW_2__sieve_eratosthenes__simple__uint64(void)
+{
 
   const uint64_t k = 100000000; // 100 M
   // 15; // result should be 47
-  
+
   uint64_t n = (k >= 6) ? k * (log(k) + log(log(k))) : 15;
   size_t prime_count;
   bool *is_prime = sieve_eratosthenes__simple__uint64(n, &prime_count);
@@ -290,32 +309,31 @@ int SHOW_2__sieve_eratosthenes__simple__uint64(void) {
     printf("Sieve is not big enough.\n");
     goto failure;
   }
-  
+
   uint64_t count = 0;
   size_t i = 0;
   for (i = 0; i < n; i++) {
     if (is_prime[i]) {
       count++;
-      if (count == k) break;
+      if (count == k)
+        break;
     }
   }
   if (count < k) {
     printf("count < k\n");
     goto failure;
   }
-  uint64_t nth_prime = i;  
-    
+  uint64_t nth_prime = i;
+
   printf("%" PRIu64 "-th prime is %" PRIu64 "\n", k, nth_prime);
-    
+
   free(is_prime);
   return EXIT_SUCCESS;
 
- failure:
+failure:
   free(is_prime);
   return EXIT_FAILURE;
-  
 }
-
 
 /**
  * Computes the Sieve of Eratosthenes up to n (exclusive) using a bit array.
@@ -329,9 +347,11 @@ int SHOW_2__sieve_eratosthenes__simple__uint64(void) {
  *         Returns NULL if n < 2 or allocation fails.
  *         Caller is responsible for freeing the array.
  */
-uint8_t *sieve_eratosthenes__odd_bit__uint64(uint64_t n, size_t *prime_count_out, size_t *array_size_out) {
+uint8_t *sieve_eratosthenes__odd_bit__uint64(uint64_t n, size_t *prime_count_out, size_t *array_size_out)
+{
   *prime_count_out = 0;
-  if (n < 2) return NULL;
+  if (n < 2)
+    return NULL;
 
   if (n == 2) {
     *prime_count_out = 1;
@@ -342,15 +362,16 @@ uint8_t *sieve_eratosthenes__odd_bit__uint64(uint64_t n, size_t *prime_count_out
   size_t byte_count = (odd_count + 7) / 8;
 
   uint8_t *bits = malloc(byte_count);
-  if (!bits) return NULL;
+  if (!bits)
+    return NULL;
 
   memset(bits, 0xFF, byte_count); // set all bits to 1 (prime)
-    
+
   uint64_t limit = (uint64_t)sqrtl((long double)n);
-  for (uint64_t i = 0; 2*i + 3 <= limit; i++) {
+  for (uint64_t i = 0; 2 * i + 3 <= limit; i++) {
     if (bits[i >> 3] & (1 << (i & 7))) {
-      uint64_t p = 2*i + 3;
-      uint64_t start = (p*p - 3) / 2; // index in bit array
+      uint64_t p = 2 * i + 3;
+      uint64_t start = (p * p - 3) / 2; // index in bit array
       for (uint64_t j = start; j < odd_count; j += p) {
         bits[j >> 3] &= ~(1 << (j & 7)); // mark as composite
       }
@@ -360,7 +381,8 @@ uint8_t *sieve_eratosthenes__odd_bit__uint64(uint64_t n, size_t *prime_count_out
   // Count primes
   size_t count = 1; // count 2
   for (uint64_t i = 0; i < odd_count; i++) {
-    if (bits[i >> 3] & (1 << (i & 7))) count++;
+    if (bits[i >> 3] & (1 << (i & 7)))
+      count++;
   }
 
   *prime_count_out = count;
@@ -369,9 +391,10 @@ uint8_t *sieve_eratosthenes__odd_bit__uint64(uint64_t n, size_t *prime_count_out
 }
 
 /* List of primes below n */
-int SHOW_1__sieve_eratosthenes__odd_bit__uint64(void) {
+int SHOW_1__sieve_eratosthenes__odd_bit__uint64(void)
+{
   const uint64_t n = 1000;
-    
+
   size_t prime_count;
   size_t array_size;
   uint8_t *bits = sieve_eratosthenes__odd_bit__uint64(n, &prime_count, &array_size);
@@ -385,11 +408,13 @@ int SHOW_1__sieve_eratosthenes__odd_bit__uint64(void) {
   for (uint64_t i = 3; i < n; i += 2) {
 
     bool is_prime;
-    if (i == 2) is_prime = true;
-    if (i < 2 || (i & 1) == 0) is_prime = false;
+    if (i == 2)
+      is_prime = true;
+    if (i < 2 || (i & 1) == 0)
+      is_prime = false;
     uint64_t idx = (i - 3) / 2;
     is_prime = bits[idx >> 3] & (1 << (idx & 7));
-        
+
     if (is_prime) {
       printf("%llu ", (unsigned long long)i);
     }
@@ -401,14 +426,15 @@ int SHOW_1__sieve_eratosthenes__odd_bit__uint64(void) {
 }
 
 /* The n-th prime */
-int SHOW_2__sieve_eratosthenes__odd_bit__uint64(void) {
+int SHOW_2__sieve_eratosthenes__odd_bit__uint64(void)
+{
 
   const uint64_t n = 100000000; // 100 M
 
   // Initial upper bound estimate for n-th prime
   double estimate = (n >= 6) ? n * (log(n) + log(log(n))) : 15;
   uint64_t limit = (uint64_t)estimate + 1;
-  
+
   size_t prime_count;
   size_t array_size;
   uint8_t *bits = sieve_eratosthenes__odd_bit__uint64(limit, &prime_count, &array_size);
@@ -423,7 +449,7 @@ int SHOW_2__sieve_eratosthenes__odd_bit__uint64(void) {
   }
 
   uint64_t nth_prime;
- 
+
   if (n == 1) {
     nth_prime = 2;
   } else {
@@ -431,8 +457,10 @@ int SHOW_2__sieve_eratosthenes__odd_bit__uint64(void) {
     size_t count = 1; // count 2
     size_t i = 0;
     for (i = 0; i < array_size; i++) {
-      if (bits[i >> 3] & (1 << (i & 7))) count++;
-      if (count == n) break;
+      if (bits[i >> 3] & (1 << (i & 7)))
+        count++;
+      if (count == n)
+        break;
     }
 
     if (count < n) {
@@ -440,15 +468,14 @@ int SHOW_2__sieve_eratosthenes__odd_bit__uint64(void) {
       goto failure;
     }
 
-    nth_prime = 2*i+3;
-    
+    nth_prime = 2 * i + 3;
   }
 
   printf("%" PRIu64 "-th prime is %" PRIu64 "\n", n, nth_prime);
   free(bits);
   return EXIT_SUCCESS;
 
- failure:
+failure:
   free(bits);
   return EXIT_FAILURE;
 }
@@ -467,7 +494,8 @@ int SHOW_2__sieve_eratosthenes__odd_bit__uint64(void) {
  *         Returns NULL if n < 2 or memory allocation fails.
  *         Caller is responsible for freeing the array.
  */
-uint64_t *list_of_primes_below__uint64(uint64_t n, size_t *nb_primes) {
+uint64_t *list_of_primes_below__uint64(uint64_t n, size_t *nb_primes)
+{
 
   *nb_primes = 0;
   size_t prime_count;
@@ -484,20 +512,22 @@ uint64_t *list_of_primes_below__uint64(uint64_t n, size_t *nb_primes) {
     printf("Could not allocate memory for primes\n");
     goto failure;
   }
-  
+
   primes[0] = 2;
   size_t count = 1;
 
   for (uint64_t i = 3; i < n; i += 2) {
 
     bool is_prime;
-    if (i == 2) is_prime = true;
-    if (i < 2 || (i & 1) == 0) is_prime = false;
+    if (i == 2)
+      is_prime = true;
+    if (i < 2 || (i & 1) == 0)
+      is_prime = false;
     uint64_t idx = (i - 3) / 2;
     is_prime = bits[idx >> 3] & (1 << (idx & 7));
-        
+
     if (is_prime) {
-      primes[count++] = 2*idx+3;
+      primes[count++] = 2 * idx + 3;
     }
   }
 
@@ -505,11 +535,11 @@ uint64_t *list_of_primes_below__uint64(uint64_t n, size_t *nb_primes) {
     printf("count != prime_count\n");
     goto failure;
   }
-  
+
   free(bits);
   return primes;
 
- failure:
+failure:
   free(bits);
   return NULL;
 }
@@ -517,8 +547,8 @@ uint64_t *list_of_primes_below__uint64(uint64_t n, size_t *nb_primes) {
 int SHOW__list_of_primes_below__uint64()
 {
   // const uint64_t n = 100; // result = 25
-  const uint64_t n = 1000000; // 1 M --> result = 78498 
-  
+  const uint64_t n = 1000000; // 1 M --> result = 78498
+
   size_t nb_primes = 0;
   uint64_t *primes = list_of_primes_below__uint64(n, &nb_primes);
   if (primes == NULL) {
@@ -526,15 +556,14 @@ int SHOW__list_of_primes_below__uint64()
     return EXIT_FAILURE;
   }
   printf("Nb of primes below %" PRIu64 " = %zu:\n", n, nb_primes);
-  for (size_t i=0; i<nb_primes; i++) {
+  for (size_t i = 0; i < nb_primes; i++) {
     printf("   %" PRIu64 "\n", primes[i]);
   }
   printf("Nb of primes below %" PRIu64 " = %zu:\n", n, nb_primes);
-  
+
   free(primes);
   return EXIT_SUCCESS;
 }
-
 
 // ===
 // ===
@@ -544,15 +573,16 @@ int SHOW__list_of_primes_below__uint64()
 /**
  * Returns n-th prime
  *
- * @param n   
+ * @param n
  * @return n-th prime or 0 if failure
  */
-uint64_t nth_prime__uint64(uint64_t n) {
+uint64_t nth_prime__uint64(uint64_t n)
+{
 
   // Initial upper bound estimate for n-th prime
   double estimate = (n >= 6) ? n * (log(n) + log(log(n))) : 15;
   uint64_t limit = (uint64_t)estimate + 1;
-  
+
   size_t prime_count;
   size_t array_size;
   uint8_t *bits = sieve_eratosthenes__odd_bit__uint64(limit, &prime_count, &array_size);
@@ -567,7 +597,7 @@ uint64_t nth_prime__uint64(uint64_t n) {
   }
 
   uint64_t nth_prime;
- 
+
   if (n == 1) {
     nth_prime = 2;
   } else {
@@ -575,8 +605,10 @@ uint64_t nth_prime__uint64(uint64_t n) {
     size_t count = 1; // count 2
     size_t i = 0;
     for (i = 0; i < array_size; i++) {
-      if (bits[i >> 3] & (1 << (i & 7))) count++;
-      if (count == n) break;
+      if (bits[i >> 3] & (1 << (i & 7)))
+        count++;
+      if (count == n)
+        break;
     }
 
     if (count < n) {
@@ -584,13 +616,13 @@ uint64_t nth_prime__uint64(uint64_t n) {
       goto failure;
     }
 
-    nth_prime = 2*i+3;
+    nth_prime = 2 * i + 3;
   }
 
   free(bits);
   return nth_prime;
 
- failure:
+failure:
   free(bits);
   return EXIT_FAILURE;
 }

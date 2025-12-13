@@ -1,76 +1,93 @@
-# Compiler and flags
+# ---------------------------------------------------------
+# COMPILER CONFIG
+# ---------------------------------------------------------
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -I./src -I./unity
-LDFLAGS = 
+CFLAGS = -Wall -Wextra -Werror -pedantic -std=c2x -O3 \
+         -Isrc -Itests/unity
+LDFLAGS =
 
-# Directories
-SRC_DIR = src
-TEST_DIR = tests
-UNITY_DIR = unity
-BUILD_DIR = build
+# ---------------------------------------------------------
+# DIRECTORIES
+# ---------------------------------------------------------
+SRC_DIR      = src
+TEST_DIR     = tests
+UNITY_DIR    = tests/unity
+BUILD_DIR    = build
 
-# Source files
+# ---------------------------------------------------------
+# SOURCES
+# ---------------------------------------------------------
+
+# App source files
 SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SOURCES))
 
-# Unity files
-UNITY_SRC = $(UNITY_DIR)/unity.c
-UNITY_OBJ = $(BUILD_DIR)/unity.o
+# Remove main.o for linking tests
+APP_OBJECTS_NO_MAIN = $(filter-out $(BUILD_DIR)/main.o,$(OBJECTS))
 
-# Test files
+# Test source files (tests/*.c)
 TEST_SOURCES = $(wildcard $(TEST_DIR)/*.c)
-TEST_EXECUTABLES = $(patsubst $(TEST_DIR)/%.c,$(BUILD_DIR)/%,$(TEST_SOURCES))
+TEST_OBJECTS = $(patsubst $(TEST_DIR)/%.c,$(BUILD_DIR)/test_%.o,$(TEST_SOURCES))
 
-# Main executable
-MAIN = main.c
+# Unity source files (tests/unity/*.c)
+UNITY_SOURCES = $(wildcard $(UNITY_DIR)/*.c)
+UNITY_OBJECTS = $(patsubst $(UNITY_DIR)/%.c,$(BUILD_DIR)/unity_%.o,$(UNITY_SOURCES))
+
+# ---------------------------------------------------------
+# EXECUTABLES
+# ---------------------------------------------------------
 EXECUTABLE = $(BUILD_DIR)/main.exe
+TEST_RUNNER = $(BUILD_DIR)/z_test_runner.exe
 
-# Default target
+# ---------------------------------------------------------
+# DEFAULT
+# ---------------------------------------------------------
 all: $(EXECUTABLE)
 
-# Build main executable
-$(EXECUTABLE): $(MAIN) $(OBJECTS) | $(BUILD_DIR)
+# ---------------------------------------------------------
+# BUILD MAIN APP
+# ---------------------------------------------------------
+$(EXECUTABLE): $(OBJECTS) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-# Build object files from source
+# ---------------------------------------------------------
+# OBJECT RULES
+# ---------------------------------------------------------
+
+# App objects
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Build Unity object file
-$(UNITY_OBJ): $(UNITY_SRC) | $(BUILD_DIR)
+# Test objects
+$(BUILD_DIR)/test_%.o: $(TEST_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Build test executables
-$(BUILD_DIR)/test_%: $(TEST_DIR)/test_%.c $(OBJECTS) $(UNITY_OBJ) | $(BUILD_DIR)
+# Unity objects
+$(BUILD_DIR)/unity_%.o: $(UNITY_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# ---------------------------------------------------------
+# TEST EXECUTABLE (APP WITHOUT main.o + TESTS + UNITY)
+# ---------------------------------------------------------
+$(TEST_RUNNER): $(APP_OBJECTS_NO_MAIN) $(TEST_OBJECTS) $(UNITY_OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-# Create build directory
+# ---------------------------------------------------------
+# DIRECTORY CREATION
+# ---------------------------------------------------------
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-# Run all tests
-test: $(TEST_EXECUTABLES)
-	@echo "Running all tests..."
-	@for test in $(TEST_EXECUTABLES); do \
-		echo "\n=== Running $$test ==="; \
-		$$test || exit 1; \
-	done
-	@echo "\nAll tests passed!"
+# ---------------------------------------------------------
+# COMMAND TARGETS
+# ---------------------------------------------------------
+test: $(TEST_RUNNER)
+	./$(TEST_RUNNER)
 
-# Run specific test
-test-%: $(BUILD_DIR)/test_%
-	@echo "Running $<..."
-	@$
-
-# Run main program
 run: $(EXECUTABLE)
-	@$(EXECUTABLE)
+	./$(EXECUTABLE)
 
-# Clean build artifacts
 clean:
 	rm -rf $(BUILD_DIR)
 
-# Phony targets
 .PHONY: all test run clean
-
-
