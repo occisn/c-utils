@@ -284,7 +284,7 @@ int SHOW__sieve_eratosthenes__uint64(void)
   }
   printf("\n");
 
-  free(is_prime);
+  free(is_prime); // <------- important
   return EXIT_SUCCESS;
 }
 
