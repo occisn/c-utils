@@ -2,9 +2,11 @@
 
 Personal utilities for C.
 
-This repository is not supposed to be a .h library, or forked and included in another project. It is more a kind of shelf with available stand-alone functions.
+This project is a kind of shelf providing many functions. With a few clearly indicated exceptions, these functions are self-supporting. They do not require any dependency, or to be built/integrated in any specific way. Because "the truly reusable code is the one that you can simply copy-paste".
 
-When relevant, functions are illustrated with associated `SHOW-_xxx` functions.
+A test suite is proposed.
+
+When relevant, functions are illustrated with associated `SHOW_xxx` functions.
 
 File **integers.c**  
    - functions `lcm__int` and `gcd__int`
