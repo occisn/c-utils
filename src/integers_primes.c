@@ -70,6 +70,13 @@ uint64_t largest_prime_factor__uint64(uint64_t n)
   return largest;
 }
 
+int SHOW__largest_prime_factor__uint64(void)
+{
+  const uint64_t n = 10001;
+  printf("Largest prime factor of %" PRIu64 " is %" PRIu64 ".\n", n, largest_prime_factor__uint64(n));
+  return EXIT_SUCCESS;
+}
+
 // ===
 
 /**
@@ -321,7 +328,7 @@ int SHOW_2__sieve_eratosthenes__simple__uint64(void)
   for (i = 0; i < n; i++) {
     if (is_prime[i]) {
       count++;
-      if (count == k)n
+      if (count == k)
         break;
     }
   }
