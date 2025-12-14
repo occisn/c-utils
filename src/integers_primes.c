@@ -217,7 +217,8 @@ bool is_prime__uint64(uint64_t n)
 
 int SHOW__is_prime__uint64(void)
 {
-  uint64_t numbers[] = {2, 3, 4, 17, 19, 20, 97, 18446744073709551557ULL};
+  uint64_t numbers[] = {2, 3, 4, 17, 19, 20, 97};
+  // 18446744073709551557ULL
   for (size_t i = 0; i < sizeof(numbers) / sizeof(numbers[0]); i++) {
     uint64_t n = numbers[i];
     printf("%" PRIu64 " is %s\n", n, is_prime__uint64(n) ? "prime" : "not prime");
@@ -299,8 +300,7 @@ int SHOW_1__sieve_eratosthenes__simple__uint64(void)
 int SHOW_2__sieve_eratosthenes__simple__uint64(void)
 {
 
-  const uint64_t k = 100000000; // 100 M
-  // 15; // result should be 47
+  const uint64_t k = 1000000; // 1 M
 
   uint64_t n = (k >= 6) ? k * (log(k) + log(log(k))) : 15;
   size_t prime_count;
@@ -321,7 +321,7 @@ int SHOW_2__sieve_eratosthenes__simple__uint64(void)
   for (i = 0; i < n; i++) {
     if (is_prime[i]) {
       count++;
-      if (count == k)
+      if (count == k)n
         break;
     }
   }
@@ -437,7 +437,7 @@ int SHOW_1__sieve_eratosthenes__odd_bit__uint64(void)
 int SHOW_2__sieve_eratosthenes__odd_bit__uint64(void)
 {
 
-  const uint64_t n = 100000000; // 100 M
+  const uint64_t n = 1000000; // 1 M
 
   // Initial upper bound estimate for n-th prime
   double estimate = (n >= 6) ? n * (log(n) + log(log(n))) : 15;
@@ -551,8 +551,7 @@ failure:
 
 int SHOW__list_of_primes_below__uint64()
 {
-  // const uint64_t n = 100; // result = 25
-  const uint64_t n = 1000000; // 1 M --> result = 78498
+  const uint64_t n = 10000; // 10 K 
 
   size_t nb_primes = 0;
   uint64_t *primes = list_of_primes_below__uint64(n, &nb_primes);
@@ -562,7 +561,7 @@ int SHOW__list_of_primes_below__uint64()
   }
   printf("Nb of primes below %" PRIu64 " = %zu:\n", n, nb_primes);
   for (size_t i = 0; i < nb_primes; i++) {
-    printf("   %" PRIu64 "\n", primes[i]);
+    printf(" %" PRIu64, primes[i]);
   }
   printf("Nb of primes below %" PRIu64 " = %zu:\n", n, nb_primes);
 
@@ -631,8 +630,7 @@ failure:
 
 int SHOW__nth_prime__uint64(void)
 {
-  // const uint64_t n = 15; // result = 47
-  const uint64_t n = 100000000; // 1 M --> result = 2,038,074,743
+  const uint64_t n = 1000; 
   uint64_t nth_prime = nth_prime__uint64(n);
   if (nth_prime == 0) {
     printf("Problem with nth prime calculation\n");
