@@ -26,33 +26,9 @@ int main(void)
   fflush(stdout);
 
   printf("\n");
-  printf("SHOW_1__sieve_eratosthenes__simple__uint64\n");
-  printf("------------------------------------------\n");
-  SHOW_1__sieve_eratosthenes__simple__uint64();
-  fflush(stdout);
-
-  printf("\n");
-  printf("SHOW_2__sieve_eratosthenes__simple__uint64\n");
-  printf("------------------------------------------\n");
-  SHOW_2__sieve_eratosthenes__simple__uint64();
-  fflush(stdout);
-
-  printf("\n");
-  printf("SHOW_1__sieve_eratosthenes__odd_bit__uint64\n");
-  printf("-------------------------------------------\n");
-  SHOW_1__sieve_eratosthenes__odd_bit__uint64();
-  fflush(stdout);
-
-  printf("\n");
-  printf("SHOW_2__sieve_eratosthenes__odd_bit__uint64\n");
-  printf("-------------------------------------------\n");
-  SHOW_2__sieve_eratosthenes__odd_bit__uint64();
-  fflush(stdout);
-
-  printf("\n");
-  printf("SHOW__list_of_primes_below__uint64\n");
-  printf("----------------------------------\n");
-  SHOW__list_of_primes_below__uint64();
+  printf("SHOW__sieve_eratosthenes__uint64\n");
+  printf("--------------------------------\n");
+  SHOW__sieve_eratosthenes__uint64();
   fflush(stdout);
 
   printf("\n");
@@ -61,6 +37,8 @@ int main(void)
   SHOW__nth_prime__uint64();
   fflush(stdout);
 
+  printf("\n(end)\n");
+  
   return EXIT_SUCCESS;
 }
 

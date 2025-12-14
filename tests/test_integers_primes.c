@@ -259,39 +259,33 @@ void test_is_prime__uint64(void)
 #include <stdint.h>
 #include <stdbool.h>
 
-void test_sieve_eratosthenes__simple__uint64(void)
+void test_sieve_eratosthenes__uint64(void)
 {
-  size_t prime_count;
   bool *sieve;
 
   // Test: n < 2 should return NULL
-  sieve = sieve_eratosthenes__simple__uint64(0, &prime_count);
+  sieve = sieve_eratosthenes__uint64(0);
   TEST_ASSERT_NULL_MESSAGE(sieve, "n=0 should return NULL");
-  TEST_ASSERT_EQUAL_UINT_MESSAGE(0, prime_count, "n=0 should have prime_count=0");
 
-  sieve = sieve_eratosthenes__simple__uint64(1, &prime_count);
+  sieve = sieve_eratosthenes__uint64(1);
   TEST_ASSERT_NULL_MESSAGE(sieve, "n=1 should return NULL");
-  TEST_ASSERT_EQUAL_UINT_MESSAGE(0, prime_count, "n=1 should have prime_count=0");
 
   // Test: n=2 should return array with no primes
-  sieve = sieve_eratosthenes__simple__uint64(2, &prime_count);
+  sieve = sieve_eratosthenes__uint64(2);
   TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=2 should return valid array");
-  TEST_ASSERT_EQUAL_UINT_MESSAGE(0, prime_count, "n=2 should have 0 primes");
   TEST_ASSERT_FALSE_MESSAGE(sieve[0], "0 should not be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[1], "1 should not be prime");
   free(sieve);
 
   // Test: n=3 should find one prime (2)
-  sieve = sieve_eratosthenes__simple__uint64(3, &prime_count);
+  sieve = sieve_eratosthenes__uint64(3);
   TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=3 should return valid array");
-  TEST_ASSERT_EQUAL_UINT_MESSAGE(1, prime_count, "n=3 should have 1 prime");
   TEST_ASSERT_TRUE_MESSAGE(sieve[2], "2 should be prime");
   free(sieve);
 
   // Test: n=10 should find 4 primes (2, 3, 5, 7)
-  sieve = sieve_eratosthenes__simple__uint64(10, &prime_count);
+  sieve = sieve_eratosthenes__uint64(10);
   TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=10 should return valid array");
-  TEST_ASSERT_EQUAL_UINT_MESSAGE(4, prime_count, "n=10 should have 4 primes");
   TEST_ASSERT_TRUE_MESSAGE(sieve[2], "2 should be prime");
   TEST_ASSERT_TRUE_MESSAGE(sieve[3], "3 should be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[4], "4 should not be prime");
@@ -303,9 +297,8 @@ void test_sieve_eratosthenes__simple__uint64(void)
   free(sieve);
 
   // Test: n=30 should find 10 primes (2,3,5,7,11,13,17,19,23,29)
-  sieve = sieve_eratosthenes__simple__uint64(30, &prime_count);
+  sieve = sieve_eratosthenes__uint64(30);
   TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=30 should return valid array");
-  TEST_ASSERT_EQUAL_UINT_MESSAGE(10, prime_count, "n=30 should have 10 primes");
   TEST_ASSERT_TRUE_MESSAGE(sieve[2], "2 should be prime");
   TEST_ASSERT_TRUE_MESSAGE(sieve[11], "11 should be prime");
   TEST_ASSERT_TRUE_MESSAGE(sieve[29], "29 should be prime");
@@ -315,149 +308,18 @@ void test_sieve_eratosthenes__simple__uint64(void)
   free(sieve);
 
   // Test: n=100 should find 25 primes
-  sieve = sieve_eratosthenes__simple__uint64(100, &prime_count);
+  sieve = sieve_eratosthenes__uint64(100);
   TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=100 should return valid array");
-  TEST_ASSERT_EQUAL_UINT_MESSAGE(25, prime_count, "n=100 should have 25 primes");
   TEST_ASSERT_TRUE_MESSAGE(sieve[97], "97 should be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[91], "91 should not be prime (7*13)");
   free(sieve);
 
   // Test: n=1000 should find 168 primes
-  sieve = sieve_eratosthenes__simple__uint64(1000, &prime_count);
+  sieve = sieve_eratosthenes__uint64(1000);
   TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=1000 should return valid array");
-  TEST_ASSERT_EQUAL_UINT_MESSAGE(168, prime_count, "n=1000 should have 168 primes");
   TEST_ASSERT_TRUE_MESSAGE(sieve[997], "997 should be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[999], "999 should not be prime (27*37)");
   free(sieve);
-}
-
-void test_sieve_eratosthenes__odd_bit__uint64(void)
-{
-  size_t prime_count, array_size;
-  uint8_t *bits;
-
-  // Test: n < 2 should return NULL
-  bits = sieve_eratosthenes__odd_bit__uint64(0, &prime_count, &array_size);
-  TEST_ASSERT_NULL_MESSAGE(bits, "n=0 should return NULL");
-  TEST_ASSERT_EQUAL_MESSAGE(0, prime_count, "n=0 should have prime_count=0");
-  
-  bits = sieve_eratosthenes__odd_bit__uint64(1, &prime_count, &array_size);
-  TEST_ASSERT_NULL_MESSAGE(bits, "n=1 should return NULL");
-  TEST_ASSERT_EQUAL_MESSAGE(0, prime_count, "n=1 should have prime_count=0");
-
-  // Test: n = 2 (only prime 2 exists, but no odd numbers to store)
-  bits = sieve_eratosthenes__odd_bit__uint64(2, &prime_count, &array_size);
-  TEST_ASSERT_NULL_MESSAGE(bits, "n=2 should return NULL (no odd numbers)");
-  TEST_ASSERT_EQUAL_MESSAGE(1, prime_count, "n=2 should count prime 2");
-
-  // Test: n = 3 (function counts primes 2 and 3)
-  bits = sieve_eratosthenes__odd_bit__uint64(3, &prime_count, &array_size);
-  TEST_ASSERT_NOT_NULL_MESSAGE(bits, "n=3 should return non-NULL array");
-  TEST_ASSERT_EQUAL_MESSAGE(2, prime_count, "n=3 counts primes 2 and 3");
-  TEST_ASSERT_EQUAL_MESSAGE(1, array_size, "n=3 should have array_size=1");
-  free(bits);
-
-  // Test: n = 10 (primes: 2, 3, 5, 7)
-  bits = sieve_eratosthenes__odd_bit__uint64(10, &prime_count, &array_size);
-  TEST_ASSERT_NOT_NULL_MESSAGE(bits, "n=10 should return non-NULL array");
-  TEST_ASSERT_EQUAL_MESSAGE(4, prime_count, "n=10 should have 4 primes (2,3,5,7)");
-  TEST_ASSERT_EQUAL_MESSAGE(4, array_size, "n=10 should have 4 odd numbers (3,5,7,9)");
-  
-  // Verify: 3 is prime (index 0, value 2*0+3=3)
-  TEST_ASSERT_TRUE_MESSAGE(bits[0] & (1 << 0), "3 should be marked as prime");
-  // Verify: 5 is prime (index 1, value 2*1+3=5)
-  TEST_ASSERT_TRUE_MESSAGE(bits[0] & (1 << 1), "5 should be marked as prime");
-  // Verify: 7 is prime (index 2, value 2*2+3=7)
-  TEST_ASSERT_TRUE_MESSAGE(bits[0] & (1 << 2), "7 should be marked as prime");
-  // Verify: 9 is composite (index 3, value 2*3+3=9)
-  TEST_ASSERT_FALSE_MESSAGE(bits[0] & (1 << 3), "9 should be marked as composite");
-  free(bits);
-
-  // Test: n = 30 (primes: 2,3,5,7,11,13,17,19,23,29 = 10 primes)
-  bits = sieve_eratosthenes__odd_bit__uint64(30, &prime_count, &array_size);
-  TEST_ASSERT_NOT_NULL_MESSAGE(bits, "n=30 should return non-NULL array");
-  TEST_ASSERT_EQUAL_MESSAGE(10, prime_count, "n=30 should have 10 primes");
-  TEST_ASSERT_EQUAL_MESSAGE(14, array_size, "n=30 should have 14 odd numbers (3 to 29)");
-  
-  // Verify some primes and composites
-  // 3 is prime (index 0)
-  TEST_ASSERT_TRUE_MESSAGE(bits[0] & (1 << 0), "3 should be prime");
-  // 9 is composite (index 3, 2*3+3=9)
-  TEST_ASSERT_FALSE_MESSAGE(bits[0] & (1 << 3), "9 should be composite (3*3)");
-  // 11 is prime (index 4, 2*4+3=11)
-  TEST_ASSERT_TRUE_MESSAGE(bits[0] & (1 << 4), "11 should be prime");
-  // 15 is composite (index 6, 2*6+3=15)
-  TEST_ASSERT_FALSE_MESSAGE(bits[0] & (1 << 6), "15 should be composite (3*5)");
-  // 25 is composite (index 11, 2*11+3=25)
-  TEST_ASSERT_FALSE_MESSAGE(bits[11 >> 3] & (1 << (11 & 7)), "25 should be composite (5*5)");
-  // 29 is prime (index 13, 2*13+3=29)
-  TEST_ASSERT_TRUE_MESSAGE(bits[13 >> 3] & (1 << (13 & 7)), "29 should be prime");
-  free(bits);
-
-  // Test: n = 100 (should have 25 primes up to 100)
-  bits = sieve_eratosthenes__odd_bit__uint64(100, &prime_count, &array_size);
-  TEST_ASSERT_NOT_NULL_MESSAGE(bits, "n=100 should return non-NULL array");
-  TEST_ASSERT_EQUAL_MESSAGE(25, prime_count, "n=100 should have 25 primes");
-  free(bits);
-
-  // Test: n = 1000 (should have 168 primes up to 1000)
-  bits = sieve_eratosthenes__odd_bit__uint64(1000, &prime_count, &array_size);
-  TEST_ASSERT_NOT_NULL_MESSAGE(bits, "n=1000 should return non-NULL array");
-  TEST_ASSERT_EQUAL_MESSAGE(168, prime_count, "n=1000 should have 168 primes");
-  free(bits);
-}
-
-void test_list_of_primes_below__uint64(void)
-{
-    size_t nb_primes;
-    uint64_t *primes;
-
-    // Test 3: n = 10 (should return [2, 3, 5, 7])
-    primes = list_of_primes_below__uint64(10, &nb_primes);
-    if (primes != NULL) {
-        TEST_ASSERT_EQUAL_size_t_MESSAGE(4, nb_primes, "n=10 should have 4 primes");
-        if (nb_primes >= 4) {
-            TEST_ASSERT_EQUAL_UINT64_MESSAGE(2, primes[0], "n=10: primes[0] should be 2");
-            TEST_ASSERT_EQUAL_UINT64_MESSAGE(3, primes[1], "n=10: primes[1] should be 3");
-            TEST_ASSERT_EQUAL_UINT64_MESSAGE(5, primes[2], "n=10: primes[2] should be 5");
-            TEST_ASSERT_EQUAL_UINT64_MESSAGE(7, primes[3], "n=10: primes[3] should be 7");
-        }
-        free(primes);
-    } else {
-        TEST_FAIL_MESSAGE("n=10 returned NULL unexpectedly");
-    }
-
-    // Test 4: n = 20 (should return [2, 3, 5, 7, 11, 13, 17, 19])
-    primes = list_of_primes_below__uint64(20, &nb_primes);
-    if (primes != NULL) {
-        TEST_ASSERT_EQUAL_size_t_MESSAGE(8, nb_primes, "n=20 should have 8 primes");
-        if (nb_primes >= 8) {
-            uint64_t expected[] = {2, 3, 5, 7, 11, 13, 17, 19};
-            for (size_t i = 0; i < 8; i++) {
-                char msg[50];
-                snprintf(msg, sizeof(msg), "n=20: primes[%zu] should be %llu", i, (unsigned long long)expected[i]);
-                TEST_ASSERT_EQUAL_UINT64_MESSAGE(expected[i], primes[i], msg);
-            }
-        }
-        free(primes);
-    } else {
-        TEST_FAIL_MESSAGE("n=20 returned NULL unexpectedly");
-    }
-
-    // Test 5: n = 100 (verify count)
-    primes = list_of_primes_below__uint64(100, &nb_primes);
-    if (primes != NULL) {
-        TEST_ASSERT_EQUAL_size_t_MESSAGE(25, nb_primes, "n=100 should have 25 primes");
-        if (nb_primes > 0) {
-            TEST_ASSERT_EQUAL_UINT64_MESSAGE(2, primes[0], "n=100: first prime should be 2");
-        }
-        if (nb_primes == 25) {
-            TEST_ASSERT_EQUAL_UINT64_MESSAGE(97, primes[24], "n=100: last prime should be 97");
-        }
-        free(primes);
-    } else {
-        TEST_FAIL_MESSAGE("n=100 returned NULL unexpectedly");
-    }
 }
 
 void test_nth_prime__uint64(void)
