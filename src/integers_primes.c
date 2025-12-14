@@ -6,13 +6,28 @@
 #include <stdlib.h>
 #include <string.h> // for memset
 
-// ===
-// ===
-// === Largest prime factor
-// ===
-
-/* Calculate largest prime factor of n (uint64_t)
-   (v1 available in occisn/c-utils GitHub repository)*/
+/**
+ * Finds the largest prime factor of a given unsigned 64-bit integer.
+ *
+ * This function uses an optimized trial division algorithm:
+ * 1. First removes all factors of 2 (the only even prime)
+ * 2. Then removes all factors of 3
+ * 3. Finally checks only numbers of the form 6k±1 (where k ≥ 1), since all
+ *    primes greater than 3 can be expressed in this form
+ *
+ * The algorithm repeatedly divides n by each prime factor found, effectively
+ * computing the complete prime factorization while only tracking the largest.
+ *
+ * @param n The number to factorize (must be a positive integer)
+ *
+ * @return The largest prime factor of n.
+ * Special case: returns 0 if n is 0 or 1 (no prime factors exist)
+ *
+ * @example
+ *   largest_prime_factor__uint64(28)      returns 7   (28 = 2² × 7)
+ *
+ * (v1 available in occisn/c-utils GitHub repository)
+ */
 uint64_t largest_prime_factor__uint64(uint64_t n)
 {
   uint64_t largest = 0;
@@ -55,9 +70,6 @@ uint64_t largest_prime_factor__uint64(uint64_t n)
   return largest;
 }
 
-// ===
-// ===
-// === Prime factorization
 // ===
 
 /**
@@ -173,9 +185,6 @@ int SHOW__factorize__uint64(void)
 }
 
 // ===
-// ===
-// === Primality test
-// ===
 
 /**
  * Checks whether an integer is prime
@@ -216,9 +225,6 @@ int SHOW__is_prime__uint64(void)
   return EXIT_SUCCESS;
 }
 
-// ===
-// ===
-// === Sieve of Eratosthenes (two versions)
 // ===
 
 /**
@@ -334,6 +340,8 @@ failure:
   free(is_prime);
   return EXIT_FAILURE;
 }
+
+// ===
 
 /**
  * Computes the Sieve of Eratosthenes up to n (exclusive) using a bit array.
@@ -481,9 +489,6 @@ failure:
 }
 
 // ===
-// ===
-// === List of primes below n
-// ===
 
 /**
  * Computes the list of primes below n
@@ -566,9 +571,6 @@ int SHOW__list_of_primes_below__uint64()
 }
 
 // ===
-// ===
-// === n-th prime
-// ===
 
 /**
  * Returns n-th prime
@@ -640,4 +642,4 @@ int SHOW__nth_prime__uint64(void)
   return EXIT_SUCCESS;
 }
 
-// end
+// === end
