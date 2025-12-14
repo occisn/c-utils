@@ -7,16 +7,25 @@ void test_gcd_lcm_relationship(void);
 
 // From test_integers_primes.c
 void test_largest_prime_factor__uint64(void);
+void test_factorize__uint64(void);
+void test_is_prime__uint64(void);
+void test_sieve_eratosthenes__simple__uint64(void);
+void test_sieve_eratosthenes__odd_bit__uint64(void);
+void test_list_of_primes_below__uint64(void);
+void test_nth_prime__uint64(void);
 
-void setUp(void) {
+void setUp(void)
+{
   //
 }
 
-void tearDown(void) {
+void tearDown(void)
+{
   //
 }
 
-int main(void) {
+int main(void)
+{
   UNITY_BEGIN();
 
   // test on 'integers'
@@ -24,9 +33,15 @@ int main(void) {
   RUN_TEST(test_lcm__int);
   RUN_TEST(test_gcd_lcm_relationship);
 
-    // tests on 'integers_primes'
+  // tests on 'integers_primes'
   RUN_TEST(test_largest_prime_factor__uint64);
-
+  RUN_TEST(test_factorize__uint64);
+  RUN_TEST(test_is_prime__uint64);
+  RUN_TEST(test_sieve_eratosthenes__simple__uint64);
+  RUN_TEST(test_sieve_eratosthenes__odd_bit__uint64);
+  RUN_TEST(test_list_of_primes_below__uint64);
+  RUN_TEST(test_nth_prime__uint64);
+  
   return UNITY_END();
 }
 

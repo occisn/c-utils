@@ -493,7 +493,7 @@ failure:
 /**
  * Computes the list of primes below n
  *
- * @param n         Upper limit (exclusive)
+ * @param n         Upper limit (exclusive) ; supposed to be > 3
  * @param nb_primes Number of primes identified
  * @return Pointer to dynamically allocated uint64_t array where:
  *         Returns NULL if n < 2 or memory allocation fails.
@@ -537,7 +537,7 @@ uint64_t *list_of_primes_below__uint64(uint64_t n, size_t *nb_primes)
   }
 
   if (count != prime_count) {
-    printf("count != prime_count\n");
+    printf("n = %" PRIu64 " ; count (%" PRIu64 ") != prime_count (%" PRIu64 ")\n", n, count, prime_count);
     goto failure;
   }
 
