@@ -21,7 +21,7 @@
  * @param n The number to factorize (must be a positive integer)
  *
  * @return The largest prime factor of n.
- * Special case: returns 0 if n is 0 or 1 (no prime factors exist)
+ * Special case: returns 0 if n < 2
  *
  * @example
  *   largest_prime_factor__uint64(28)      returns 7   (28 = 2² × 7)
@@ -31,6 +31,10 @@
 uint64_t largest_prime_factor__uint64(uint64_t n)
 {
   uint64_t largest = 0;
+
+  if (n < 2) {
+    return 0;
+  }
 
   // Remove all factors of 2
   while (n % 2 == 0) {
@@ -73,6 +77,11 @@ uint64_t largest_prime_factor__uint64(uint64_t n)
 int SHOW__largest_prime_factor__uint64(void)
 {
   const uint64_t n = 10001;
+  uint64_t largest_prime_factor = largest_prime_factor__uint64(n);
+  if (largest_prime_factor == 0) {
+    printf("largest_prime_factor called with a parameter < 2\n");
+    return EXIT_FAILURE;
+  }
   printf("Largest prime factor of %" PRIu64 " is %" PRIu64 ".\n", n, largest_prime_factor__uint64(n));
   return EXIT_SUCCESS;
 }
@@ -181,11 +190,10 @@ int SHOW__factorize__uint64(void)
   if (factors == NULL) {
     printf("Problem in factorization\n");
     return EXIT_FAILURE;
-  } else {
-    printf("%zu prime factor(s) of %llu:\n", count, (unsigned long long)n);
-    for (size_t i = 0; i < count; i++) {
-      printf("%" PRIu64 "\n", factors[i]);
-    }
+  }
+  printf("%zu prime factor(s) of %llu:\n", count, (unsigned long long)n);
+  for (size_t i = 0; i < count; i++) {
+    printf("%" PRIu64 "\n", factors[i]);
   }
   free(factors);
   return EXIT_SUCCESS;
@@ -273,7 +281,7 @@ int SHOW__sieve_eratosthenes__uint64(void)
   bool *is_prime = sieve_eratosthenes__uint64(n);
 
   if (is_prime == NULL) {
-    printf("Memory allocation failed or n < 2\n");
+    printf("sieve_eratosthenes: memory allocation failed or n < 2\n");
     return EXIT_FAILURE;
   }
 
@@ -299,6 +307,10 @@ int SHOW__sieve_eratosthenes__uint64(void)
 uint64_t nth_prime__uint64(uint64_t n)
 {
 
+  if (n < 1) {
+    return 0;
+  }
+  
   // Initial upper bound estimate for n-th prime
   double estimate = (n >= 6) ? n * (log(n) + log(log(n))) : 15;
   uint64_t limit = (uint64_t)estimate + 1;
@@ -345,7 +357,7 @@ int SHOW__nth_prime__uint64(void)
   const uint64_t n = 1000;
   uint64_t nth_prime = nth_prime__uint64(n);
   if (nth_prime == 0) {
-    printf("Problem with nth prime calculation\n");
+    printf("nth_prime: problem with nth prime calculation\n");
     return EXIT_FAILURE;
   }
   printf("%" PRIu64 "-th prime is %" PRIu64 "\n", n, nth_prime);
