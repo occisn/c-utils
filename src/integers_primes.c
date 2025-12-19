@@ -192,9 +192,11 @@ int SHOW__factorize__uint64(void)
     return EXIT_FAILURE;
   }
   printf("%zu prime factor(s) of %llu:\n", count, (unsigned long long)n);
-  for (size_t i = 0; i < count; i++) {
-    printf("%" PRIu64 "\n", factors[i]);
+  printf("%" PRIu64, factors[0]);
+  for (size_t i = 1; i < count; i++) {
+    printf(" %" PRIu64, factors[i]);
   }
+  printf("\n");
   free(factors);
   return EXIT_SUCCESS;
 }

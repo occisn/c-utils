@@ -8,9 +8,15 @@ A test suite is proposed.
 
 When relevant, functions are illustrated with associated `SHOW_xxx` functions.
 
+File **durations.c**  
+   - function `measure_duration`
+
 File **integers.c**  
    - functions `lcm__int` and `gcd__int`
-   
+
+File **integers_digits**  
+   - function `reverse_number`
+
 File **integer_primes.c**  
    - function `largest_prime_factor__uint64`  
    - function `factorize__uint64`   
@@ -19,8 +25,6 @@ File **integer_primes.c**
    - function `list_of_primes_below__uint64`   
    - function `nth_prime__uint64`
       
-File **durations.c**  
-   - function `measure_duration`
 
 Any comment? Open an [issue](https://github.com/occisn/c-utils/issues), or start a discussion [here](https://github.com/occisn/c-utils/discussions) or [at profile level](https://github.com/occisn/occisn/discussions).
 
