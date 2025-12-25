@@ -12,7 +12,7 @@ int main(void)
   printf("\n");
   printf("duration / measure_duration\n");
   printf("---------------------------\n");
-  measure_duration();
+  SHOW__measure_duration();
   fflush(stdout);
 
   printf("\n");

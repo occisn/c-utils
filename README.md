@@ -9,7 +9,7 @@ A test suite is proposed.
 When relevant, functions are illustrated with associated `SHOW_xxx` functions.
 
 File **durations.c**  
-   - function `measure_duration`
+   - function `SHOW__measure_duration`
 
 File **integers.c**  
    - functions `lcm__int` and `gcd__int`

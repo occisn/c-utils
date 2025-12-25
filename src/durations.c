@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 
-void measure_duration(void)
+void SHOW__measure_duration(void)
 {
   struct timespec start, end;
   double duration;
