@@ -9,8 +9,9 @@ A test suite is proposed.
 When relevant, functions are illustrated with associated `SHOW_xxx` functions.
 
 File **durations.c**  
-   - function `SHOW__measure_duration`
-
+   - function `SHOW__measure_duration`  
+   - functions `SHOW__benchmark_5_times_A` and `SHOW__benchmark_5_times_B`
+   
 File **integers.c**  
    - functions `lcm__int` and `gcd__int`
 
