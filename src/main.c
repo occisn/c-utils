@@ -79,7 +79,8 @@ int main(void)
   printf("\n");
   printf("parallelism / SHOW_parallelism_with_openmp\n");
   printf("------------------------------------------\n");
-  SHOW_parallelism_with_openmp(100000000, 24);
+  SHOW_parallelism_with_openmp_1(500000000);
+  SHOW_parallelism_with_openmp_2(500000000);
   fflush(stdout);
 
   printf("\n(end)\n");

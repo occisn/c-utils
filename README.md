@@ -27,7 +27,7 @@ File **integer_primes.c**
    - function `nth_prime__uint64`
 
 File **parallelism.c**  
-   - function `SHOW_parallelism_with_openmp`
+   - function `SHOW_parallelism_with_openmp_1` and `_2`
 
 Any comment? Open an [issue](https://github.com/occisn/c-utils/issues), or start a discussion [here](https://github.com/occisn/c-utils/discussions) or [at profile level](https://github.com/occisn/occisn/discussions).
 
