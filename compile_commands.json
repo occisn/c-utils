@@ -9,6 +9,8 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-fopenmp",
+   "-march=native",
    "-Isrc",
    "-Itests/unity",
    "-c",
@@ -28,6 +30,8 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-fopenmp",
+   "-march=native",
    "-Isrc",
    "-Itests/unity",
    "-c",
@@ -47,6 +51,8 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-fopenmp",
+   "-march=native",
    "-Isrc",
    "-Itests/unity",
    "-c",
@@ -66,6 +72,8 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-fopenmp",
+   "-march=native",
    "-Isrc",
    "-Itests/unity",
    "-c",
@@ -74,5 +82,26 @@
    "build/main.o"
   ],
   "file": "src/main.c"
+ },
+ {
+  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-fopenmp",
+   "-march=native",
+   "-Isrc",
+   "-Itests/unity",
+   "-c",
+   "src/integers_digits.c",
+   "-o",
+   "build/integers_digits.o"
+  ],
+  "file": "src/integers_digits.c"
  }
 ]

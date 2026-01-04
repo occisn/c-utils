@@ -15,7 +15,7 @@ File **durations.c**
 File **integers.c**  
    - functions `lcm__int` and `gcd__int`
 
-File **integers_digits**  
+File **integers_digits.c**  
    - function `reverse_number`
 
 File **integer_primes.c**  
@@ -25,7 +25,9 @@ File **integer_primes.c**
    - functions `sieve_eratosthenes__simple__uint64` and `sieve_eratosthenes__odd_bit__uint64`  
    - function `list_of_primes_below__uint64`   
    - function `nth_prime__uint64`
-      
+
+File **parallelism.c**  
+   - function `SHOW_parallelism_with_openmp`
 
 Any comment? Open an [issue](https://github.com/occisn/c-utils/issues), or start a discussion [here](https://github.com/occisn/c-utils/discussions) or [at profile level](https://github.com/occisn/occisn/discussions).
 

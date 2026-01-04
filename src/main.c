@@ -2,6 +2,7 @@
 #include "integers.h"
 #include "integers_digits.h"
 #include "integers_primes.h"
+#include "parallelism.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -73,6 +74,12 @@ int main(void)
   printf("integers_primes / SHOW__nth_prime__uint64\n");
   printf("-----------------------------------------\n");
   SHOW__nth_prime__uint64();
+  fflush(stdout);
+
+  printf("\n");
+  printf("parallelism / SHOW_parallelism_with_openmp\n");
+  printf("------------------------------------------\n");
+  SHOW_parallelism_with_openmp(100000000, 24);
   fflush(stdout);
 
   printf("\n(end)\n");
