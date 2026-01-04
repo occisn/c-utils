@@ -2,7 +2,8 @@
 #include "integers.h"
 #include "integers_digits.h"
 #include "integers_primes.h"
-#include "parallelism.h"
+#include "parallelism_with_openmp.h"
+#include "parallelism_with_threads.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -79,8 +80,14 @@ int main(void)
   printf("\n");
   printf("parallelism / SHOW_parallelism_with_openmp\n");
   printf("------------------------------------------\n");
-  SHOW_parallelism_with_openmp_1(500000000);
-  SHOW_parallelism_with_openmp_2(500000000);
+  SHOW_parallelism_with_openmp_1(1000000000); // 1 billion
+  SHOW_parallelism_with_openmp_2(1000000000); // 1 billion
+  fflush(stdout);
+
+  printf("\n");
+  printf("parallelism / SHOW_parallelism_with_threads\n");
+  printf("-------------------------------------------\n");
+  SHOW_parallelism_with_threads(1000000000); // 1 billion
   fflush(stdout);
 
   printf("\n(end)\n");

@@ -9,6 +9,7 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-pthread",
    "-fopenmp",
    "-march=native",
    "-Isrc",
@@ -30,6 +31,7 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-pthread",
    "-fopenmp",
    "-march=native",
    "-Isrc",
@@ -51,6 +53,7 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-pthread",
    "-fopenmp",
    "-march=native",
    "-Isrc",
@@ -72,6 +75,7 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-pthread",
    "-fopenmp",
    "-march=native",
    "-Isrc",
@@ -93,6 +97,7 @@
    "-pedantic",
    "-std=c2x",
    "-O3",
+   "-pthread",
    "-fopenmp",
    "-march=native",
    "-Isrc",
@@ -103,5 +108,27 @@
    "build/integers_digits.o"
   ],
   "file": "src/integers_digits.c"
+ },
+ {
+  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-pthread",
+   "-fopenmp",
+   "-march=native",
+   "-Isrc",
+   "-Itests/unity",
+   "-c",
+   "src/parallelism_openmp.c",
+   "-o",
+   "build/parallelism_openmp.o"
+  ],
+  "file": "src/parallelism_openmp.c"
  }
 ]

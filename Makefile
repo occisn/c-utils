@@ -3,7 +3,7 @@
 # ---------------------------------------------------------
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pedantic -std=c2x -O3 \
-         -fopenmp -march=native \
+         -pthread -fopenmp -march=native \
          -Isrc -Itests/unity
 LDFLAGS =
 
