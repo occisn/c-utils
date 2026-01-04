@@ -50,6 +50,7 @@ void SHOW__benchmark_5_times_A(void)
     clock_gettime(CLOCK_MONOTONIC, &end);
     double duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
     printf("Run %d / %d: %f seconds\n", i + 1, nb_runs, duration);
+    fflush(stdout);
     durations[i] = duration;
   }
 
@@ -107,6 +108,7 @@ void SHOW__benchmark_5_times_B(void)
   for (int i = 0; i < nb_runs; i++) {
     double duration = calculate_pi_leibniz_B(100000000);
     printf("Run %d / %d: %f seconds\n", i + 1, nb_runs, duration);
+    fflush(stdout);
     durations[i] = duration;
   }
 
