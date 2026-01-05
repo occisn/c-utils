@@ -82,6 +82,7 @@ int main(void)
   printf("------------------------------------------\n");
   SHOW_parallelism_with_openmp_1(1000000000); // 1 billion
   SHOW_parallelism_with_openmp_2(1000000000); // 1 billion
+  SHOW_parallelism_with_openmp_3(1000000000); // 1 billion
   fflush(stdout);
 
   printf("\n");

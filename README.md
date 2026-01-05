@@ -27,8 +27,10 @@ File **integer_primes.c**
    - function `nth_prime__uint64`
 
 File **parallelism_with_openmp.c**  
-   - function `SHOW_parallelism_with_openmp_1` and `_2`
-
+   - function `SHOW_parallelism_with_openmp_1` (with reduction)  
+   - function `SHOW_parallelism_with_openmp_2` (without reduction)  
+   - function `SHOW_parallelism_with_openmp_3` (task)
+   
 File **parallelism_with_threads.c**  
    - function `SHOW_parallelism_with_threads`
 
