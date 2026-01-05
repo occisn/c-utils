@@ -102,7 +102,7 @@ double calculate_pi_leibniz_B(long n)
  * This variant enables to do other things in the version, outside of the measured time, for instance printing result."
  */
 
-int compare_double(const void *a, const void *b)
+static int compare_double(const void *a, const void *b)
 {
   double arg1 = *(const double *)a;
   double arg2 = *(const double *)b;
