@@ -1,6 +1,7 @@
 #include "durations.h"
 #include <float.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 // Helper function to calculate pi using Leibniz formula
@@ -100,10 +101,22 @@ double calculate_pi_leibniz_B(long n)
  * In this version, the function shall return the execution duration to be benchmarked.
  * This variant enables to do other things in the version, outside of the measured time, for instance printing result."
  */
+
+int compare_double(const void *a, const void *b)
+{
+  double arg1 = *(const double *)a;
+  double arg2 = *(const double *)b;
+  if (arg1 < arg2)
+    return -1;
+  if (arg1 > arg2)
+    return 1;
+  return 0;
+}
+
 void SHOW__benchmark_5_times_B(void)
 {
   const int nb_runs = 5;
-  double durations[5];
+  double durations[nb_runs];
 
   for (int i = 0; i < nb_runs; i++) {
     double duration = calculate_pi_leibniz_B(100000000);
@@ -112,22 +125,18 @@ void SHOW__benchmark_5_times_B(void)
     durations[i] = duration;
   }
 
-  // Find quickest and slowest
-  double quickest = DBL_MAX;
-  double slowest = 0.0;
-  for (int i = 0; i < nb_runs; i++) {
-    if (durations[i] < quickest)
-      quickest = durations[i];
-    if (durations[i] > slowest)
-      slowest = durations[i];
-  }
+  qsort(durations, nb_runs, sizeof(double), compare_double);
+  double quickest = durations[0];
+  double second_best = durations[1];
+  double slowest = durations[nb_runs - 1];
 
   printf("\nRESULTS:\n");
   for (int i = 0; i < nb_runs; i++) {
     printf("Run %d / %d: %f seconds\n", i + 1, nb_runs, durations[i]);
   }
-  printf("=> quickest time: %f seconds\n", quickest);
-  printf("=> slowest time:  %f seconds = quickest + %ld %%\n",
+  printf("=> quickest execution: %f seconds\n", quickest);
+  printf("=> second best:        %f seconds\n", second_best);
+  printf("=> slowest execution:  %f seconds = quickest + %ld %%\n",
          slowest, (long)(100.0 * (slowest - quickest) / quickest));
 }
 
