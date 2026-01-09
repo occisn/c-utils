@@ -1,6 +1,7 @@
-#ifndef PARALLELISM_WITH_THREADS_H
-#define PARALLELISM_WITH_THREADS_H
+#pragma once
+
+#include <inttypes.h>
 
 double SHOW_parallelism_with_threads(uint64_t n);
 
-#endif // PARALLELISM_WITH_THREADS_H
+// end

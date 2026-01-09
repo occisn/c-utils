@@ -1,5 +1,4 @@
-#ifndef INTEGERS_PRIMES_H
-#define INTEGERS_PRIMES_H
+#pragma once
 
 #include <inttypes.h>
 
@@ -18,4 +17,4 @@ int SHOW__sieve_eratosthenes__uint64(void);
 uint64_t nth_prime__uint64(uint64_t n);
 int SHOW__nth_prime__uint64();
 
-#endif
+// end

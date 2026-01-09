@@ -1,6 +1,5 @@
-#ifndef INTEGERS_DIGITS_H
-#define INTEGERS_DIGITS_H
+#pragma once
 
 int reverse_number(int n);
 
-#endif // INTEGERS_DIGITS_H
+// end
