@@ -301,35 +301,33 @@ int SHOW_sieve_eratosthenes_uint64(void)
 // ===
 
 /**
- * Returns n-th prime
+ * Returns n-th prime via out-parameter.
  *
- * @param n
- * @return n-th prime or 0 if failure
+ * @param n       Which prime to find (1-indexed: n=1 returns 2, n=2 returns 3, etc.)
+ * @param result  Pointer to store the n-th prime (must not be NULL)
+ * @return EXIT_SUCCESS on success, EXIT_FAILURE on failure
+ *
+ * v2
  */
-uint64_t nth_prime_uint64(uint64_t n)
+int nth_prime_uint64(uint64_t n, uint64_t *result)
 {
-
-  if (n < 1) {
-    return 0;
+  if (n < 1 || result == NULL) {
+    return EXIT_FAILURE;
   }
-  
+
   // Initial upper bound estimate for n-th prime
   double estimate = (n >= 6) ? n * (log(n) + log(log(n))) : 15;
   uint64_t limit = (uint64_t)estimate + 1;
 
   bool *is_prime = sieve_eratosthenes_uint64(limit);
   if (is_prime == NULL) {
-    printf("Construction of sieve failed.\n");
     return EXIT_FAILURE;
   }
 
-  uint64_t nth_prime;
-
   if (n == 1) {
-    nth_prime = 2;
+    *result = 2;
   } else {
-
-    size_t count = 0; // count 2
+    size_t count = 0;
     size_t i = 0;
     for (i = 0; i < limit; i++) {
       if (is_prime[i])
@@ -339,26 +337,22 @@ uint64_t nth_prime_uint64(uint64_t n)
     }
 
     if (count < n) {
-      printf("Sieve is not big enough.\n");
-      goto failure;
+      free(is_prime);
+      return EXIT_FAILURE;
     }
 
-    nth_prime = i;
+    *result = i;
   }
 
   free(is_prime);
-  return nth_prime;
-
-failure:
-  free(is_prime);
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
 
 int SHOW_nth_prime_uint64(void)
 {
   const uint64_t n = 1000;
-  uint64_t nth_prime = nth_prime_uint64(n);
-  if (nth_prime == 0) {
+  uint64_t nth_prime;
+  if (nth_prime_uint64(n, &nth_prime) != EXIT_SUCCESS) {
     printf("nth_prime: problem with nth prime calculation\n");
     return EXIT_FAILURE;
   }
