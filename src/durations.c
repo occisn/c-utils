@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define NB_RUNS 5
+
 // Helper function to calculate pi using Leibniz formula
 double calculate_pi_leibniz_A(long n)
 {
@@ -37,10 +39,9 @@ void SHOW_measure_duration(void)
  */
 void SHOW_benchmark_5_times_A(void)
 {
-  const int nb_runs = 5;
-  double durations[5];
+  double durations[NB_RUNS];
 
-  for (int i = 0; i < nb_runs; i++) {
+  for (int i = 0; i < NB_RUNS; i++) {
     struct timespec start;
     clock_gettime(CLOCK_MONOTONIC, &start);
 
@@ -50,7 +51,7 @@ void SHOW_benchmark_5_times_A(void)
     struct timespec end;
     clock_gettime(CLOCK_MONOTONIC, &end);
     double duration = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
-    printf("Run %d / %d: %f seconds\n", i + 1, nb_runs, duration);
+    printf("Run %d / %d: %f seconds\n", i + 1, NB_RUNS, duration);
     fflush(stdout);
     durations[i] = duration;
   }
@@ -58,15 +59,15 @@ void SHOW_benchmark_5_times_A(void)
   // Find quickest and slowest
   double quickest = DBL_MAX;
   double slowest = 0.0;
-  for (int i = 0; i < nb_runs; i++) {
+  for (int i = 0; i < NB_RUNS; i++) {
     if (durations[i] < quickest)
       quickest = durations[i];
     if (durations[i] > slowest)
       slowest = durations[i];
   }
   printf("\nRESULTS:\n");
-  for (int i = 0; i < nb_runs; i++) {
-    printf("Run %d / %d: %f seconds\n", i + 1, nb_runs, durations[i]);
+  for (int i = 0; i < NB_RUNS; i++) {
+    printf("Run %d / %d: %f seconds\n", i + 1, NB_RUNS, durations[i]);
   }
   printf("=> quickest time: %f seconds\n", quickest);
   printf("=> slowest time:  %f seconds = quickest + %ld %%\n",
@@ -115,24 +116,23 @@ static int compare_double(const void *a, const void *b)
 
 void SHOW_benchmark_5_times_B(void)
 {
-  const int nb_runs = 5;
-  double durations[nb_runs];
+  double durations[NB_RUNS];
 
-  for (int i = 0; i < nb_runs; i++) {
+  for (int i = 0; i < NB_RUNS; i++) {
     double duration = calculate_pi_leibniz_B(100000000);
-    printf("Run %d / %d: %f seconds\n", i + 1, nb_runs, duration);
+    printf("Run %d / %d: %f seconds\n", i + 1, NB_RUNS, duration);
     fflush(stdout);
     durations[i] = duration;
   }
 
-  qsort(durations, nb_runs, sizeof(double), compare_double);
+  qsort(durations, NB_RUNS, sizeof(double), compare_double);
   double quickest = durations[0];
   double second_best = durations[1];
-  double slowest = durations[nb_runs - 1];
+  double slowest = durations[NB_RUNS - 1];
 
   printf("\nRESULTS:\n");
-  for (int i = 0; i < nb_runs; i++) {
-    printf("Run %d / %d: %f seconds\n", i + 1, nb_runs, durations[i]);
+  for (int i = 0; i < NB_RUNS; i++) {
+    printf("Run %d / %d: %f seconds\n", i + 1, NB_RUNS, durations[i]);
   }
   printf("=> quickest execution: %f seconds\n", quickest);
   printf("=> second best:        %f seconds\n", second_best);
