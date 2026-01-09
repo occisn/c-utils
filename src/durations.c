@@ -18,7 +18,7 @@ double calculate_pi_leibniz_A(long n)
   return tmp;
 }
 
-void SHOW__measure_duration(void)
+void SHOW_measure_duration(void)
 {
   struct timespec start, end;
   double duration;
@@ -35,7 +35,7 @@ void SHOW__measure_duration(void)
 /*
  * Execute function 5 times, print each duration, and report the quickest.
  */
-void SHOW__benchmark_5_times_A(void)
+void SHOW_benchmark_5_times_A(void)
 {
   const int nb_runs = 5;
   double durations[5];
@@ -113,7 +113,7 @@ static int compare_double(const void *a, const void *b)
   return 0;
 }
 
-void SHOW__benchmark_5_times_B(void)
+void SHOW_benchmark_5_times_B(void)
 {
   const int nb_runs = 5;
   double durations[nb_runs];

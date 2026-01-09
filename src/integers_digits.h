@@ -1,5 +1,5 @@
 #pragma once
 
-int reverse_number(int n);
+int reverse_number_int(int n);
 
 // end

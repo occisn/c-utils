@@ -16,11 +16,11 @@
  * @return The GCD of a and b. Returns a if b is 0, or b if a is 0.
  *
  * @example
- *   gcd__int(12, 15) returns 3
+ *   gcd_int(12, 15) returns 3
  *
  * (v1 available in occisn/c-utils GitHub repository)
  */
-int gcd__int(int a, int b)
+int gcd_int(int a, int b)
 {
   while (b != 0) {
     int temp = b;
@@ -50,20 +50,20 @@ int gcd__int(int a, int b)
  *
  * @note If either a or b is 0, the LCM is mathematically undefined, so the
  *       function returns 0 by convention.
- * @note This function depends on gcd__int() to compute the greatest common divisor.
+ * @note This function depends on gcd_int() to compute the greatest common divisor.
  *
  * @example
- *   lcm__int(12, 18)   returns 36
+ *   lcm_int(12, 18)   returns 36
  *
- * @see gcd__int()
+ * @see gcd_int()
  *
  * (v2 available in occisn/c-utils GitHub repository)
  */
-int lcm__int(int a, int b)
+int lcm_int(int a, int b)
 {
   if (a == 0 || b == 0)
     return 0;
-  return (int)((int64_t)a * b / gcd__int(a, b));
+  return (int)((int64_t)a * b / gcd_int(a, b));
 }
 
 // === end

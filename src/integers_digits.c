@@ -12,16 +12,16 @@
  * whose digits are in reverse order.
  *
  * Examples:
- *   reverse_number(123)   -> 321
- *   reverse_number(1000)  -> 1
- *   reverse_number(0)     -> 0
+ *   reverse_number_int(123)   -> 321
+ *   reverse_number_int(1000)  -> 1
+ *   reverse_number_int(0)     -> 0
  *
  * @param n Non-negative integer to reverse
  * @return Reversed integer
  *
  * (v1 available in occisn/c-utils GitHub repository, 2025-12-19)
  */
-int reverse_number(int n)
+int reverse_number_int(int n)
 {
   int reversed = 0;
   while (n > 0) {

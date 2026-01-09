@@ -24,11 +24,11 @@
  * Special case: returns 0 if n < 2
  *
  * @example
- *   largest_prime_factor__uint64(28)      returns 7   (28 = 2² × 7)
+ *   largest_prime_factor_uint64(28)      returns 7   (28 = 2² × 7)
  *
  * (v1 available in occisn/c-utils GitHub repository)
  */
-uint64_t largest_prime_factor__uint64(uint64_t n)
+uint64_t largest_prime_factor_uint64(uint64_t n)
 {
   uint64_t largest = 0;
 
@@ -74,15 +74,15 @@ uint64_t largest_prime_factor__uint64(uint64_t n)
   return largest;
 }
 
-int SHOW__largest_prime_factor__uint64(void)
+int SHOW_largest_prime_factor_uint64(void)
 {
   const uint64_t n = 10001;
-  uint64_t largest_prime_factor = largest_prime_factor__uint64(n);
+  uint64_t largest_prime_factor = largest_prime_factor_uint64(n);
   if (largest_prime_factor == 0) {
     printf("largest_prime_factor called with a parameter < 2\n");
     return EXIT_FAILURE;
   }
-  printf("Largest prime factor of %" PRIu64 " is %" PRIu64 ".\n", n, largest_prime_factor__uint64(n));
+  printf("Largest prime factor of %" PRIu64 " is %" PRIu64 ".\n", n, largest_prime_factor_uint64(n));
   return EXIT_SUCCESS;
 }
 
@@ -102,17 +102,17 @@ int SHOW__largest_prime_factor__uint64(void)
  * @code
  *    const uint64_t n = 9223372036854775808ULL; // 2^63
  *    size_t count;
- *    uint64_t *factors = factorize__uint64(n, &count, false);
+ *    uint64_t *factors = factorize_uint64(n, &count, false);
  *    if (factors == NULL) {
  *       printf("Problem in factorization\n");
  *       return EXIT_FAILURE;
  *   } else {
- *      printf("Prime factors of %llu:\n", (unsigned long long)n);
+ *      printf("Prime factors of %" PRIu64 ":\n", n);
  *      for (size_t i = 0; i < count; i++) {
- *      printf("%llu\n", (unsigned long long)factors[i]);
+ *      printf("%" PRIu64 "\n", factors[i]);
  *  }
  */
-uint64_t *factorize__uint64(uint64_t n, size_t *count_out, bool multiplicity)
+uint64_t *factorize_uint64(uint64_t n, size_t *count_out, bool multiplicity)
 {
   *count_out = 0;
   if (n < 2)
@@ -177,7 +177,7 @@ failure:
   return NULL;
 }
 
-int SHOW__factorize__uint64(void)
+int SHOW_factorize_uint64(void)
 {
   // const uint64_t n = 18446744073709551615ULL;  // 2^64 - 1
   // const uint64_t n = 9223372036854775808ULL; // 2^63
@@ -185,13 +185,13 @@ int SHOW__factorize__uint64(void)
   // const uint64_t n = 18446744073709551557ULL; // largest 64-bit prime
   size_t count;
 
-  uint64_t *factors = factorize__uint64(n, &count, true);
+  uint64_t *factors = factorize_uint64(n, &count, true);
 
   if (factors == NULL) {
     printf("Problem in factorization\n");
     return EXIT_FAILURE;
   }
-  printf("%zu prime factor(s) of %llu:\n", count, (unsigned long long)n);
+  printf("%zu prime factor(s) of %" PRIu64 ":\n", count, n);
   printf("%" PRIu64, factors[0]);
   for (size_t i = 1; i < count; i++) {
     printf(" %" PRIu64, factors[i]);
@@ -209,7 +209,7 @@ int SHOW__factorize__uint64(void)
  * @param n        The integer to test
  * @return true/false
  */
-bool is_prime__uint64(uint64_t n)
+bool is_prime_uint64(uint64_t n)
 {
   if (n < 2)
     return false; // 0 and 1 are not prime
@@ -227,13 +227,13 @@ bool is_prime__uint64(uint64_t n)
   return true;
 }
 
-int SHOW__is_prime__uint64(void)
+int SHOW_is_prime_uint64(void)
 {
   uint64_t numbers[] = {2, 3, 4, 17, 19, 20, 97};
   // 18446744073709551557ULL
   for (size_t i = 0; i < sizeof(numbers) / sizeof(numbers[0]); i++) {
     uint64_t n = numbers[i];
-    printf("%" PRIu64 " is %s\n", n, is_prime__uint64(n) ? "prime" : "not prime");
+    printf("%" PRIu64 " is %s\n", n, is_prime_uint64(n) ? "prime" : "not prime");
   }
   return EXIT_SUCCESS;
 }
@@ -252,7 +252,7 @@ int SHOW__is_prime__uint64(void)
  *
  * (v1 available in occisn/c-utils GitHub repository)
  */
-bool *sieve_eratosthenes__uint64(uint64_t n)
+bool *sieve_eratosthenes_uint64(uint64_t n)
 {
   if (n < 2)
     return NULL;
@@ -277,10 +277,10 @@ bool *sieve_eratosthenes__uint64(uint64_t n)
   return is_prime;
 }
 
-int SHOW__sieve_eratosthenes__uint64(void)
+int SHOW_sieve_eratosthenes_uint64(void)
 {
   const uint64_t n = 100;
-  bool *is_prime = sieve_eratosthenes__uint64(n);
+  bool *is_prime = sieve_eratosthenes_uint64(n);
 
   if (is_prime == NULL) {
     printf("sieve_eratosthenes: memory allocation failed or n < 2\n");
@@ -306,7 +306,7 @@ int SHOW__sieve_eratosthenes__uint64(void)
  * @param n
  * @return n-th prime or 0 if failure
  */
-uint64_t nth_prime__uint64(uint64_t n)
+uint64_t nth_prime_uint64(uint64_t n)
 {
 
   if (n < 1) {
@@ -317,7 +317,7 @@ uint64_t nth_prime__uint64(uint64_t n)
   double estimate = (n >= 6) ? n * (log(n) + log(log(n))) : 15;
   uint64_t limit = (uint64_t)estimate + 1;
 
-  bool *is_prime = sieve_eratosthenes__uint64(limit);
+  bool *is_prime = sieve_eratosthenes_uint64(limit);
   if (is_prime == NULL) {
     printf("Construction of sieve failed.\n");
     return EXIT_FAILURE;
@@ -354,10 +354,10 @@ failure:
   return EXIT_FAILURE;
 }
 
-int SHOW__nth_prime__uint64(void)
+int SHOW_nth_prime_uint64(void)
 {
   const uint64_t n = 1000;
-  uint64_t nth_prime = nth_prime__uint64(n);
+  uint64_t nth_prime = nth_prime_uint64(n);
   if (nth_prime == 0) {
     printf("nth_prime: problem with nth prime calculation\n");
     return EXIT_FAILURE;
