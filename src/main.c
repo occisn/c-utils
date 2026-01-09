@@ -4,6 +4,7 @@
 #include "integers_primes.h"
 #include "parallelism_with_openmp.h"
 #include "parallelism_with_threads.h"
+#include "progress.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -89,6 +90,14 @@ int main(void)
   printf("parallelism / SHOW_parallelism_with_threads\n");
   printf("-------------------------------------------\n");
   SHOW_parallelism_with_threads(1000000000); // 1 billion
+  fflush(stdout);
+
+  printf("\n");
+  printf("progress\n");
+  printf("--------\n");
+  progress_number(1000); // 50000 for real demo
+  fflush(stdout);
+  progress_bar(1000); // 50000 for real demo
   fflush(stdout);
 
   printf("\n(end)\n");

@@ -34,6 +34,10 @@ File **parallelism_with_openmp.c**
 File **parallelism_with_threads.c**  
    - function `SHOW_parallelism_with_threads`
 
+File **progress.c**  
+   - function `progress_number`  
+   - function `progress_bar`
+  
 Any comment? Open an [issue](https://github.com/occisn/c-utils/issues), or start a discussion [here](https://github.com/occisn/c-utils/discussions) or [at profile level](https://github.com/occisn/occisn/discussions).
 
 (end of README)
