@@ -7,7 +7,7 @@
 #include <string.h> // for memset
 
 /**
- * Finds the largest prime factor
+ * Finds the largest prime factor of an integer
  *
  * Special case: returns 0 if n < 2
  *
