@@ -262,30 +262,44 @@ void test_is_prime_uint64(void)
 void test_sieve_eratosthenes_uint64(void)
 {
   bool *sieve;
-
-  // Test: n < 2 should return NULL
-  sieve = sieve_eratosthenes_uint64(0);
-  TEST_ASSERT_NULL_MESSAGE(sieve, "n=0 should return NULL");
-
-  sieve = sieve_eratosthenes_uint64(1);
-  TEST_ASSERT_NULL_MESSAGE(sieve, "n=1 should return NULL");
-
-  // Test: n=2 should return array with no primes
-  sieve = sieve_eratosthenes_uint64(2);
-  TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=2 should return valid array");
+  bool result;
+  
+  // Test: n < 1 should return false
+  sieve = (bool *)malloc(1 * sizeof(bool));
+  result = populate_sieve_eratosthenes_uint64(sieve, 0);
+  TEST_ASSERT_FALSE_MESSAGE(result, "n=0 should return false");
+  free(sieve);
+  
+  // Test: NULL pointer should return false
+  result = populate_sieve_eratosthenes_uint64(NULL, 10);
+  TEST_ASSERT_FALSE_MESSAGE(result, "NULL pointer should return false");
+  
+  // Test: n=1 should return true but mark index 0 as non-prime
+  sieve = (bool *)malloc(1 * sizeof(bool));
+  result = populate_sieve_eratosthenes_uint64(sieve, 1);
+  TEST_ASSERT_TRUE_MESSAGE(result, "n=1 should return true");
+  TEST_ASSERT_FALSE_MESSAGE(sieve[0], "0 should not be prime");
+  free(sieve);
+  
+  // Test: n=2 should return true with both 0 and 1 marked non-prime
+  sieve = (bool *)malloc(2 * sizeof(bool));
+  result = populate_sieve_eratosthenes_uint64(sieve, 2);
+  TEST_ASSERT_TRUE_MESSAGE(result, "n=2 should return true");
   TEST_ASSERT_FALSE_MESSAGE(sieve[0], "0 should not be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[1], "1 should not be prime");
   free(sieve);
-
+  
   // Test: n=3 should find one prime (2)
-  sieve = sieve_eratosthenes_uint64(3);
-  TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=3 should return valid array");
+  sieve = (bool *)malloc(3 * sizeof(bool));
+  result = populate_sieve_eratosthenes_uint64(sieve, 3);
+  TEST_ASSERT_TRUE_MESSAGE(result, "n=3 should return true");
   TEST_ASSERT_TRUE_MESSAGE(sieve[2], "2 should be prime");
   free(sieve);
-
+  
   // Test: n=10 should find 4 primes (2, 3, 5, 7)
-  sieve = sieve_eratosthenes_uint64(10);
-  TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=10 should return valid array");
+  sieve = (bool *)malloc(10 * sizeof(bool));
+  result = populate_sieve_eratosthenes_uint64(sieve, 10);
+  TEST_ASSERT_TRUE_MESSAGE(result, "n=10 should return true");
   TEST_ASSERT_TRUE_MESSAGE(sieve[2], "2 should be prime");
   TEST_ASSERT_TRUE_MESSAGE(sieve[3], "3 should be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[4], "4 should not be prime");
@@ -295,10 +309,11 @@ void test_sieve_eratosthenes_uint64(void)
   TEST_ASSERT_FALSE_MESSAGE(sieve[8], "8 should not be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[9], "9 should not be prime");
   free(sieve);
-
+  
   // Test: n=30 should find 10 primes (2,3,5,7,11,13,17,19,23,29)
-  sieve = sieve_eratosthenes_uint64(30);
-  TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=30 should return valid array");
+  sieve = (bool *)malloc(30 * sizeof(bool));
+  result = populate_sieve_eratosthenes_uint64(sieve, 30);
+  TEST_ASSERT_TRUE_MESSAGE(result, "n=30 should return true");
   TEST_ASSERT_TRUE_MESSAGE(sieve[2], "2 should be prime");
   TEST_ASSERT_TRUE_MESSAGE(sieve[11], "11 should be prime");
   TEST_ASSERT_TRUE_MESSAGE(sieve[29], "29 should be prime");
@@ -306,17 +321,19 @@ void test_sieve_eratosthenes_uint64(void)
   TEST_ASSERT_FALSE_MESSAGE(sieve[15], "15 should not be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[25], "25 should not be prime");
   free(sieve);
-
+  
   // Test: n=100 should find 25 primes
-  sieve = sieve_eratosthenes_uint64(100);
-  TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=100 should return valid array");
+  sieve = (bool *)malloc(100 * sizeof(bool));
+  result = populate_sieve_eratosthenes_uint64(sieve, 100);
+  TEST_ASSERT_TRUE_MESSAGE(result, "n=100 should return true");
   TEST_ASSERT_TRUE_MESSAGE(sieve[97], "97 should be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[91], "91 should not be prime (7*13)");
   free(sieve);
-
+  
   // Test: n=1000 should find 168 primes
-  sieve = sieve_eratosthenes_uint64(1000);
-  TEST_ASSERT_NOT_NULL_MESSAGE(sieve, "n=1000 should return valid array");
+  sieve = (bool *)malloc(1000 * sizeof(bool));
+  result = populate_sieve_eratosthenes_uint64(sieve, 1000);
+  TEST_ASSERT_TRUE_MESSAGE(result, "n=1000 should return true");
   TEST_ASSERT_TRUE_MESSAGE(sieve[997], "997 should be prime");
   TEST_ASSERT_FALSE_MESSAGE(sieve[999], "999 should not be prime (27*37)");
   free(sieve);

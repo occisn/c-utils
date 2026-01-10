@@ -67,9 +67,9 @@ int main(void)
   fflush(stdout);
 
   printf("\n");
-  printf("integers_primes / SHOW_sieve_eratosthenes_uint64\n");
+  printf("integers_primes / SHOW_populate_sieve_eratosthenes_uint64\n");
   printf("--------------------------------------------------\n");
-  SHOW_sieve_eratosthenes_uint64();
+  SHOW_populate_sieve_eratosthenes_uint64();
   fflush(stdout);
 
   printf("\n");

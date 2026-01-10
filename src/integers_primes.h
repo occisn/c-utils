@@ -12,8 +12,8 @@ bool SHOW_factorize_uint64(void);
 bool is_prime_uint64(uint64_t n);
 bool SHOW_is_prime_uint64(void);
 
-bool *sieve_eratosthenes_uint64(uint64_t n);
-bool SHOW_sieve_eratosthenes_uint64(void);
+bool populate_sieve_eratosthenes_uint64(bool *is_prime, const uint64_t n);
+bool SHOW_populate_sieve_eratosthenes_uint64(void);
 
 bool nth_prime_uint64(uint64_t n, uint64_t *result);
 bool SHOW_nth_prime_uint64(void);

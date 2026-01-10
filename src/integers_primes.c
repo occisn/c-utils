@@ -7,34 +7,19 @@
 #include <string.h> // for memset
 
 /**
- * Finds the largest prime factor of a given unsigned 64-bit integer.
+ * Finds the largest prime factor
  *
- * This function uses an optimized trial division algorithm:
- * 1. First removes all factors of 2 (the only even prime)
- * 2. Then removes all factors of 3
- * 3. Finally checks only numbers of the form 6k±1 (where k ≥ 1), since all
- *    primes greater than 3 can be expressed in this form
- *
- * The algorithm repeatedly divides n by each prime factor found, effectively
- * computing the complete prime factorization while only tracking the largest.
- *
- * @param n The number to factorize (must be a positive integer)
- *
- * @return The largest prime factor of n.
  * Special case: returns 0 if n < 2
- *
- * @example
- *   largest_prime_factor_uint64(28)      returns 7   (28 = 2² × 7)
  *
  * (v1 available in occisn/c-utils GitHub repository)
  */
 uint64_t largest_prime_factor_uint64(uint64_t n)
 {
-  uint64_t largest = 0;
-
   if (n < 2) {
     return 0;
   }
+
+  uint64_t largest = 0;
 
   // Remove all factors of 2
   while (n % 2 == 0) {
@@ -79,7 +64,7 @@ bool SHOW_largest_prime_factor_uint64(void)
   const uint64_t n = 10001;
   uint64_t largest_prime_factor = largest_prime_factor_uint64(n);
   if (largest_prime_factor == 0) {
-    printf("largest_prime_factor called with a parameter < 2\n");
+    printf("Problem in largest_prime_factor.\n");
     return false;
   }
   printf("Largest prime factor of %" PRIu64 " is %" PRIu64 ".\n", n, largest_prime_factor_uint64(n));
@@ -98,19 +83,7 @@ bool SHOW_largest_prime_factor_uint64(void)
  *         Returns NULL if memory allocation fails or n < 2.
  *         Caller is responsible for freeing the returned array.
  *
- * Example usage:
- * @code
- *    const uint64_t n = 9223372036854775808ULL; // 2^63
- *    size_t count;
- *    uint64_t *factors = factorize_uint64(n, &count, false);
- *    if (factors == NULL) {
- *       printf("Problem in factorization\n");
- *       return false;
- *   } else {
- *      printf("Prime factors of %" PRIu64 ":\n", n);
- *      for (size_t i = 0; i < count; i++) {
- *      printf("%" PRIu64 "\n", factors[i]);
- *  }
+ * (v1 available in occisn/c-utils GitHub repository)
  */
 uint64_t *factorize_uint64(uint64_t n, size_t *count_out, bool multiplicity)
 {
@@ -188,7 +161,7 @@ bool SHOW_factorize_uint64(void)
   uint64_t *factors = factorize_uint64(n, &count, true);
 
   if (factors == NULL) {
-    printf("Problem in factorization\n");
+    printf("Problem in factorize_uint64\n");
     return false;
   }
   printf("%zu prime factor(s) of %" PRIu64 ":\n", count, n);
@@ -241,25 +214,22 @@ bool SHOW_is_prime_uint64(void)
 // ===
 
 /**
- * Computes the Sieve of Eratosthenes up to n (exclusive)
+ * Populate the Sieve of Eratosthenes up to n (exclusive)
  * and counts the number of primes.
  *
- * @param n         Upper limit (exclusive)
- * @return Pointer to dynamically allocated bool array where:
- *         is_prime[i] == true if i is prime, false otherwise.
- *         Returns NULL if n < 2 or memory allocation fails.
- *         Caller is responsible for freeing the array.
+ * Array is created by the caller
  *
- * (v1 available in occisn/c-utils GitHub repository)
+ * Return true/false if success/failure
+ *
+ * (v2 available in occisn/c-utils GitHub repository)
  */
-bool *sieve_eratosthenes_uint64(uint64_t n)
+bool populate_sieve_eratosthenes_uint64(bool *is_prime, const uint64_t n)
 {
-  if (n < 2)
-    return NULL;
+  if (n < 1)
+    return false;
 
-  bool *is_prime = malloc(n * sizeof(bool));
-  if (!is_prime)
-    return NULL;
+  if (is_prime == NULL)
+    return false;
 
   for (uint64_t i = 0; i < n; i++)
     is_prime[i] = true;
@@ -274,16 +244,21 @@ bool *sieve_eratosthenes_uint64(uint64_t n)
     }
   }
 
-  return is_prime;
+  return true;
 }
 
-bool SHOW_sieve_eratosthenes_uint64(void)
+bool SHOW_populate_sieve_eratosthenes_uint64(void)
 {
   const uint64_t n = 100;
-  bool *is_prime = sieve_eratosthenes_uint64(n);
+  bool *is_prime = malloc(n * sizeof *is_prime);
 
-  if (is_prime == NULL) {
-    printf("sieve_eratosthenes: memory allocation failed or n < 2\n");
+  if (!is_prime) {
+    printf("Problem in malloc.\n");
+    return false;
+  }
+
+  if (!populate_sieve_eratosthenes_uint64(is_prime, n)) {
+    printf("Problem in populate_sieve_eratosthenes_uint64\n");
     return false;
   }
 
@@ -294,7 +269,8 @@ bool SHOW_sieve_eratosthenes_uint64(void)
   }
   printf("\n");
 
-  free(is_prime); // <------- important
+  free(is_prime);
+
   return true;
 }
 
@@ -303,8 +279,6 @@ bool SHOW_sieve_eratosthenes_uint64(void)
 /**
  * Returns n-th prime via out-parameter.
  *
- * @param n       Which prime to find (1-indexed: n=1 returns 2, n=2 returns 3, etc.)
- * @param result  Pointer to store the n-th prime (must not be NULL)
  * @return true on success, false on failure
  *
  * (v2 available in occisn/c-utils GitHub repository)
@@ -319,9 +293,16 @@ bool nth_prime_uint64(uint64_t n, uint64_t *result)
   double estimate = (n >= 6) ? n * (log(n) + log(log(n))) : 15;
   uint64_t limit = (uint64_t)estimate + 1;
 
-  bool *is_prime = sieve_eratosthenes_uint64(limit);
+  bool *is_prime = malloc(limit * sizeof *is_prime);
   if (is_prime == NULL) {
+    printf("Problem in malloc.\n");
     return false;
+  }
+
+  // populate sieve
+  if (!populate_sieve_eratosthenes_uint64(is_prime, limit)) {
+    printf("Problem in populate_sieve_eratosthenes_uint64.\n");
+    goto failure;
   }
 
   if (n == 1) {
@@ -344,6 +325,7 @@ bool nth_prime_uint64(uint64_t n, uint64_t *result)
     *result = i;
   }
 
+failure:
   free(is_prime);
   return true;
 }
@@ -352,8 +334,8 @@ bool SHOW_nth_prime_uint64(void)
 {
   const uint64_t n = 1000;
   uint64_t nth_prime;
-  if (nth_prime_uint64(n, &nth_prime) != true) {
-    printf("nth_prime: problem with nth prime calculation\n");
+  if (!nth_prime_uint64(n, &nth_prime)) {
+    printf("Problem with nth_prime_uint64\n");
     return false;
   }
   printf("%" PRIu64 "-th prime is %" PRIu64 "\n", n, nth_prime);
