@@ -12,6 +12,10 @@ File **durations.c**
    - function `SHOW_measure_duration`  
    - functions `SHOW_benchmark_5_times_A` and `SHOW_benchmark_5_times_B`
    
+File **images.c**  
+   - function `save_bmp`  
+   - function `save_png`
+   
 File **integers.c**  
    - functions `lcm_int` and `gcd_int`
 

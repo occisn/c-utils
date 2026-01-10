@@ -31,6 +31,12 @@ int main(void)
   fflush(stdout);
 
   printf("\n");
+  printf("images\n");
+  printf("------\n");
+  printf("Nothing to show.\n");
+  fflush(stdout);
+
+  printf("\n");
   printf("integers / gcd_int\n");
   printf("--------------------\n");
   printf("gcd(12,15) = %d\n", gcd_int(12, 15));
