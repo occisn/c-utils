@@ -223,7 +223,7 @@ bool SHOW_is_prime_uint64(void)
  *
  * (v2 available in occisn/c-utils GitHub repository)
  */
-bool populate_sieve_eratosthenes_uint64(bool *is_prime, const uint64_t n)
+bool populate_sieve_eratosthenes_uint64(bool *is_prime, uint64_t n)
 {
   if (n < 1)
     return false;
