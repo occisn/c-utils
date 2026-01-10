@@ -24,7 +24,7 @@ int main(void)
   SHOW_benchmark_5_times_A();
   fflush(stdout);
 
- printf("\n");
+  printf("\n");
   printf("duration / measure_duration - benchmark x5 (B)\n");
   printf("----------------------------------------------\n");
   SHOW_benchmark_5_times_B();
@@ -33,7 +33,7 @@ int main(void)
   printf("\n");
   printf("integers / gcd_int\n");
   printf("--------------------\n");
-  printf("gcd(12,15) = %d\n", gcd_int(12,15));
+  printf("gcd(12,15) = %d\n", gcd_int(12, 15));
   fflush(stdout);
 
   printf("\n");

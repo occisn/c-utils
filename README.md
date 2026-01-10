@@ -9,22 +9,22 @@ A test suite is proposed.
 When relevant, functions are illustrated with associated `SHOW_xxx` functions.
 
 File **durations.c**  
-   - function `SHOW__measure_duration`  
-   - functions `SHOW__benchmark_5_times_A` and `SHOW__benchmark_5_times_B`
+   - function `SHOW_measure_duration`  
+   - functions `SHOW_benchmark_5_times_A` and `SHOW_benchmark_5_times_B`
    
 File **integers.c**  
-   - functions `lcm__int` and `gcd__int`
+   - functions `lcm_int` and `gcd_int`
 
 File **integers_digits.c**  
-   - function `reverse_number`
+   - function `reverse_number_int`
 
 File **integer_primes.c**  
-   - function `largest_prime_factor__uint64`  
-   - function `factorize__uint64`   
-   - function `is_prime__uint64`  
-   - functions `sieve_eratosthenes__simple__uint64` and `sieve_eratosthenes__odd_bit__uint64`  
-   - function `list_of_primes_below__uint64`   
-   - function `nth_prime__uint64`
+   - function `largest_prime_factor_uint64`  
+   - function `factorize_uint64`   
+   - function `is_prime_uint64`  
+   - functions `sieve_eratosthenes_simple_uint64` and `sieve_eratosthenes_odd_bit_uint64`  
+   - function `list_of_primes_below_uint64`   
+   - function `nth_prime_uint64`
 
 File **parallelism_with_openmp.c**  
    - function `SHOW_parallelism_with_openmp_1` (with reduction)  

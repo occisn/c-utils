@@ -4,18 +4,18 @@
 #include <stdbool.h>
 
 uint64_t largest_prime_factor_uint64(uint64_t n);
-int SHOW_largest_prime_factor_uint64(void);
+bool SHOW_largest_prime_factor_uint64(void);
 
 uint64_t *factorize_uint64(uint64_t n, size_t *count_out, bool multiplicity);
-int SHOW_factorize_uint64(void);
+bool SHOW_factorize_uint64(void);
 
 bool is_prime_uint64(uint64_t n);
-int SHOW_is_prime_uint64(void);
+bool SHOW_is_prime_uint64(void);
 
 bool *sieve_eratosthenes_uint64(uint64_t n);
-int SHOW_sieve_eratosthenes_uint64(void);
+bool SHOW_sieve_eratosthenes_uint64(void);
 
-int nth_prime_uint64(uint64_t n, uint64_t *result);
-int SHOW_nth_prime_uint64(void);
+bool nth_prime_uint64(uint64_t n, uint64_t *result);
+bool SHOW_nth_prime_uint64(void);
 
 // end

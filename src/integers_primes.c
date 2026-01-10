@@ -74,16 +74,16 @@ uint64_t largest_prime_factor_uint64(uint64_t n)
   return largest;
 }
 
-int SHOW_largest_prime_factor_uint64(void)
+bool SHOW_largest_prime_factor_uint64(void)
 {
   const uint64_t n = 10001;
   uint64_t largest_prime_factor = largest_prime_factor_uint64(n);
   if (largest_prime_factor == 0) {
     printf("largest_prime_factor called with a parameter < 2\n");
-    return EXIT_FAILURE;
+    return false;
   }
   printf("Largest prime factor of %" PRIu64 " is %" PRIu64 ".\n", n, largest_prime_factor_uint64(n));
-  return EXIT_SUCCESS;
+  return true;
 }
 
 // ===
@@ -105,7 +105,7 @@ int SHOW_largest_prime_factor_uint64(void)
  *    uint64_t *factors = factorize_uint64(n, &count, false);
  *    if (factors == NULL) {
  *       printf("Problem in factorization\n");
- *       return EXIT_FAILURE;
+ *       return false;
  *   } else {
  *      printf("Prime factors of %" PRIu64 ":\n", n);
  *      for (size_t i = 0; i < count; i++) {
@@ -177,7 +177,7 @@ failure:
   return NULL;
 }
 
-int SHOW_factorize_uint64(void)
+bool SHOW_factorize_uint64(void)
 {
   // const uint64_t n = 18446744073709551615ULL;  // 2^64 - 1
   // const uint64_t n = 9223372036854775808ULL; // 2^63
@@ -189,7 +189,7 @@ int SHOW_factorize_uint64(void)
 
   if (factors == NULL) {
     printf("Problem in factorization\n");
-    return EXIT_FAILURE;
+    return false;
   }
   printf("%zu prime factor(s) of %" PRIu64 ":\n", count, n);
   printf("%" PRIu64, factors[0]);
@@ -198,7 +198,7 @@ int SHOW_factorize_uint64(void)
   }
   printf("\n");
   free(factors);
-  return EXIT_SUCCESS;
+  return true;
 }
 
 // ===
@@ -227,7 +227,7 @@ bool is_prime_uint64(uint64_t n)
   return true;
 }
 
-int SHOW_is_prime_uint64(void)
+bool SHOW_is_prime_uint64(void)
 {
   uint64_t numbers[] = {2, 3, 4, 17, 19, 20, 97};
   // 18446744073709551557ULL
@@ -235,7 +235,7 @@ int SHOW_is_prime_uint64(void)
     uint64_t n = numbers[i];
     printf("%" PRIu64 " is %s\n", n, is_prime_uint64(n) ? "prime" : "not prime");
   }
-  return EXIT_SUCCESS;
+  return true;
 }
 
 // ===
@@ -277,14 +277,14 @@ bool *sieve_eratosthenes_uint64(uint64_t n)
   return is_prime;
 }
 
-int SHOW_sieve_eratosthenes_uint64(void)
+bool SHOW_sieve_eratosthenes_uint64(void)
 {
   const uint64_t n = 100;
   bool *is_prime = sieve_eratosthenes_uint64(n);
 
   if (is_prime == NULL) {
     printf("sieve_eratosthenes: memory allocation failed or n < 2\n");
-    return EXIT_FAILURE;
+    return false;
   }
 
   printf("Primes below %" PRIu64 ":\n", n);
@@ -295,7 +295,7 @@ int SHOW_sieve_eratosthenes_uint64(void)
   printf("\n");
 
   free(is_prime); // <------- important
-  return EXIT_SUCCESS;
+  return true;
 }
 
 // ===
@@ -305,14 +305,14 @@ int SHOW_sieve_eratosthenes_uint64(void)
  *
  * @param n       Which prime to find (1-indexed: n=1 returns 2, n=2 returns 3, etc.)
  * @param result  Pointer to store the n-th prime (must not be NULL)
- * @return EXIT_SUCCESS on success, EXIT_FAILURE on failure
+ * @return true on success, false on failure
  *
- * v2
+ * (v2 available in occisn/c-utils GitHub repository)
  */
-int nth_prime_uint64(uint64_t n, uint64_t *result)
+bool nth_prime_uint64(uint64_t n, uint64_t *result)
 {
   if (n < 1 || result == NULL) {
-    return EXIT_FAILURE;
+    return false;
   }
 
   // Initial upper bound estimate for n-th prime
@@ -321,7 +321,7 @@ int nth_prime_uint64(uint64_t n, uint64_t *result)
 
   bool *is_prime = sieve_eratosthenes_uint64(limit);
   if (is_prime == NULL) {
-    return EXIT_FAILURE;
+    return false;
   }
 
   if (n == 1) {
@@ -338,26 +338,26 @@ int nth_prime_uint64(uint64_t n, uint64_t *result)
 
     if (count < n) {
       free(is_prime);
-      return EXIT_FAILURE;
+      return false;
     }
 
     *result = i;
   }
 
   free(is_prime);
-  return EXIT_SUCCESS;
+  return true;
 }
 
-int SHOW_nth_prime_uint64(void)
+bool SHOW_nth_prime_uint64(void)
 {
   const uint64_t n = 1000;
   uint64_t nth_prime;
-  if (nth_prime_uint64(n, &nth_prime) != EXIT_SUCCESS) {
+  if (nth_prime_uint64(n, &nth_prime) != true) {
     printf("nth_prime: problem with nth prime calculation\n");
-    return EXIT_FAILURE;
+    return false;
   }
   printf("%" PRIu64 "-th prime is %" PRIu64 "\n", n, nth_prime);
-  return EXIT_SUCCESS;
+  return true;
 }
 
 // === end

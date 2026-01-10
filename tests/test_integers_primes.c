@@ -327,44 +327,44 @@ void test_nth_prime_uint64(void)
     uint64_t result;
 
     // Test first prime (n=1)
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(1, &result), "nth_prime should succeed for n=1");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(1, &result), "nth_prime should succeed for n=1");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(2, result, "1st prime should be 2");
 
     // Test first few primes
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(2, &result), "nth_prime should succeed for n=2");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(2, &result), "nth_prime should succeed for n=2");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(3, result, "2nd prime should be 3");
 
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(3, &result), "nth_prime should succeed for n=3");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(3, &result), "nth_prime should succeed for n=3");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(5, result, "3rd prime should be 5");
 
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(4, &result), "nth_prime should succeed for n=4");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(4, &result), "nth_prime should succeed for n=4");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(7, result, "4th prime should be 7");
 
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(5, &result), "nth_prime should succeed for n=5");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(5, &result), "nth_prime should succeed for n=5");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(11, result, "5th prime should be 11");
 
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(6, &result), "nth_prime should succeed for n=6");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(6, &result), "nth_prime should succeed for n=6");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(13, result, "6th prime should be 13");
 
     // Test additional cases
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(10, &result), "nth_prime should succeed for n=10");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(10, &result), "nth_prime should succeed for n=10");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(29, result, "10th prime should be 29");
 
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(25, &result), "nth_prime should succeed for n=25");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(25, &result), "nth_prime should succeed for n=25");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(97, result, "25th prime should be 97");
 
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(100, &result), "nth_prime should succeed for n=100");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(100, &result), "nth_prime should succeed for n=100");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(541, result, "100th prime should be 541");
 
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(200, &result), "nth_prime should succeed for n=200");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(200, &result), "nth_prime should succeed for n=200");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(1223, result, "200th prime should be 1223");
 
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_SUCCESS, nth_prime_uint64(1000, &result), "nth_prime should succeed for n=1000");
+    TEST_ASSERT_TRUE_MESSAGE(nth_prime_uint64(1000, &result), "nth_prime should succeed for n=1000");
     TEST_ASSERT_EQUAL_UINT64_MESSAGE(7919, result, "1000th prime should be 7919");
 
     // Test error cases
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_FAILURE, nth_prime_uint64(0, &result), "nth_prime should fail for n=0");
-    TEST_ASSERT_EQUAL_INT_MESSAGE(EXIT_FAILURE, nth_prime_uint64(1, NULL), "nth_prime should fail for NULL result");
+    TEST_ASSERT_FALSE_MESSAGE(nth_prime_uint64(0, &result), "nth_prime should fail for n=0");
+    TEST_ASSERT_FALSE_MESSAGE(nth_prime_uint64(1, NULL), "nth_prime should fail for NULL result");
 }
 
 // end
