@@ -31,6 +31,12 @@ int main(void)
   fflush(stdout);
 
   printf("\n");
+  printf("files\n");
+  printf("-----\n");
+  printf("Nothing to show.\n");
+  fflush(stdout);
+
+  printf("\n");
   printf("images\n");
   printf("------\n");
   printf("Nothing to show.\n");

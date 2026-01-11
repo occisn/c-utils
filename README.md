@@ -11,7 +11,10 @@ When relevant, functions are illustrated with associated `SHOW_xxx` functions.
 File **durations.c**  
    - function `SHOW_measure_duration`  
    - functions `SHOW_benchmark_5_times_A` and `SHOW_benchmark_5_times_B`
-   
+ 
+File **files.c**  
+   - function `ensure_directory_exists`
+
 File **images.c**  
    - function `save_bmp`  
    - function `save_png`
