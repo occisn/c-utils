@@ -6,8 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-
-#define NB_OF_CORES_2 8
+#include <windows.h>
 
 // workers threads and tasks queue
 
@@ -162,9 +161,14 @@ double SHOW_parallelism_with_threads(uint64_t n) {
   struct timespec start_time, end_time;
   clock_gettime(CLOCK_MONOTONIC, &start_time);
 
-  const int num_tasks = NB_OF_CORES_2 * 4;
+  SYSTEM_INFO sysinfo;
+  GetNativeSystemInfo(&sysinfo);
+  const int nb_cores = sysinfo.dwNumberOfProcessors;
+  printf("Number of cores on this system: %d\n", nb_cores);
+  
+  const int num_tasks = nb_cores * 4;
 
-  thread_pool_t *pool = thread_pool_create(NB_OF_CORES_2);
+  thread_pool_t *pool = thread_pool_create(nb_cores);
   
   // Submit tasks
   thread_pool_submit_tasks(pool, n, num_tasks);
@@ -185,7 +189,7 @@ double SHOW_parallelism_with_threads(uint64_t n) {
   double duration = (end_time.tv_sec - start_time.tv_sec) +
                     (end_time.tv_nsec - start_time.tv_nsec) / 1e9;
   printf("Leibniz formula: pi = %.20f (in %f s, %d threads, %d tasks)\n",
-         tmp, duration, NB_OF_CORES_2, num_tasks);
+         tmp, duration, nb_cores, num_tasks);
   fflush(stdout);
   return duration;
 }

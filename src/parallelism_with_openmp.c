@@ -7,8 +7,6 @@
 
 // flags: -fopenmp -march=native
 
-#define NUMBER_OF_CORES 8
-
 // with reduction:
 double SHOW_parallelism_with_openmp_1(uint64_t n)
 {
@@ -19,10 +17,14 @@ double SHOW_parallelism_with_openmp_1(uint64_t n)
 
   // omp_get_max_threads()
 
-  const int nb_chunks = NUMBER_OF_CORES * 4;
-  const int chunk_size = n / nb_chunks;
+  const int nb_cores = omp_get_num_procs();
+  printf("Number of cores on this system: %d\n", nb_cores);
+  const int nb_chunks = nb_cores * 4;
+  int chunk_size = n / nb_chunks;
+  if (chunk_size < 1)
+    chunk_size = 1;
 
-#pragma omp parallel for schedule(static, chunk_size) reduction(+ : tmp) num_threads(NUMBER_OF_CORES)
+#pragma omp parallel for schedule(static, chunk_size) reduction(+ : tmp) num_threads(nb_cores)
   for (uint64_t i = 0; i < n; i++) {
     // omp_get_thread_num()
     double sign = (i & 1) ? -1.0 : 1.0;
@@ -114,7 +116,7 @@ double SHOW_parallelism_with_openmp_3(uint64_t n)
     }
   }
 
-   tmp *= 4.0;
+  tmp *= 4.0;
 
   clock_gettime(CLOCK_MONOTONIC, &end_time);
 
@@ -126,7 +128,6 @@ double SHOW_parallelism_with_openmp_3(uint64_t n)
   fflush(stdout);
 
   return duration;
-  
 }
 
 // end
