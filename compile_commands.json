@@ -1,6 +1,6 @@
 [
  {
-  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
   "arguments": [
    "gcc",
    "-Wall",
@@ -13,6 +13,7 @@
    "-fopenmp",
    "-march=native",
    "-Isrc",
+   "-Iinclude",
    "-Itests/unity",
    "-c",
    "src/durations.c",
@@ -22,7 +23,7 @@
   "file": "src/durations.c"
  },
  {
-  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
   "arguments": [
    "gcc",
    "-Wall",
@@ -35,6 +36,53 @@
    "-fopenmp",
    "-march=native",
    "-Isrc",
+   "-Iinclude",
+   "-Itests/unity",
+   "-c",
+   "src/files.c",
+   "-o",
+   "build/files.o"
+  ],
+  "file": "src/files.c"
+ },
+ {
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-pthread",
+   "-fopenmp",
+   "-march=native",
+   "-Isrc",
+   "-Iinclude",
+   "-Itests/unity",
+   "-c",
+   "src/images.c",
+   "-o",
+   "build/images.o"
+  ],
+  "file": "src/images.c"
+ },
+ {
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-pthread",
+   "-fopenmp",
+   "-march=native",
+   "-Isrc",
+   "-Iinclude",
    "-Itests/unity",
    "-c",
    "src/integers.c",
@@ -44,7 +92,7 @@
   "file": "src/integers.c"
  },
  {
-  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
   "arguments": [
    "gcc",
    "-Wall",
@@ -57,50 +105,7 @@
    "-fopenmp",
    "-march=native",
    "-Isrc",
-   "-Itests/unity",
-   "-c",
-   "src/integers_primes.c",
-   "-o",
-   "build/integers_primes.o"
-  ],
-  "file": "src/integers_primes.c"
- },
- {
-  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
-  "arguments": [
-   "gcc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pedantic",
-   "-std=c2x",
-   "-O3",
-   "-pthread",
-   "-fopenmp",
-   "-march=native",
-   "-Isrc",
-   "-Itests/unity",
-   "-c",
-   "src/main.c",
-   "-o",
-   "build/main.o"
-  ],
-  "file": "src/main.c"
- },
- {
-  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
-  "arguments": [
-   "gcc",
-   "-Wall",
-   "-Wextra",
-   "-Werror",
-   "-pedantic",
-   "-std=c2x",
-   "-O3",
-   "-pthread",
-   "-fopenmp",
-   "-march=native",
-   "-Isrc",
+   "-Iinclude",
    "-Itests/unity",
    "-c",
    "src/integers_digits.c",
@@ -110,7 +115,7 @@
   "file": "src/integers_digits.c"
  },
  {
-  "directory": "c:\\Users\\noccis\\Dropbox\\local-repos\\c-utils",
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
   "arguments": [
    "gcc",
    "-Wall",
@@ -123,12 +128,105 @@
    "-fopenmp",
    "-march=native",
    "-Isrc",
+   "-Iinclude",
    "-Itests/unity",
    "-c",
-   "src/parallelism_openmp.c",
+   "src/integers_primes.c",
    "-o",
-   "build/parallelism_openmp.o"
+   "build/integers_primes.o"
   ],
-  "file": "src/parallelism_openmp.c"
+  "file": "src/integers_primes.c"
+ },
+ {
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-pthread",
+   "-fopenmp",
+   "-march=native",
+   "-Isrc",
+   "-Iinclude",
+   "-Itests/unity",
+   "-c",
+   "src/main.c",
+   "-o",
+   "build/main.o"
+  ],
+  "file": "src/main.c"
+ },
+ {
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-pthread",
+   "-fopenmp",
+   "-march=native",
+   "-Isrc",
+   "-Iinclude",
+   "-Itests/unity",
+   "-c",
+   "src/parallelism_with_openmp.c",
+   "-o",
+   "build/parallelism_with_openmp.o"
+  ],
+  "file": "src/parallelism_with_openmp.c"
+ },
+ {
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-pthread",
+   "-fopenmp",
+   "-march=native",
+   "-Isrc",
+   "-Iinclude",
+   "-Itests/unity",
+   "-c",
+   "src/parallelism_with_threads.c",
+   "-o",
+   "build/parallelism_with_threads.o"
+  ],
+  "file": "src/parallelism_with_threads.c"
+ },
+ {
+  "directory": "c:\\Users\\nicol\\Dropbox\\local-repos\\c-utils",
+  "arguments": [
+   "gcc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-pedantic",
+   "-std=c2x",
+   "-O3",
+   "-pthread",
+   "-fopenmp",
+   "-march=native",
+   "-Isrc",
+   "-Iinclude",
+   "-Itests/unity",
+   "-c",
+   "src/progress.c",
+   "-o",
+   "build/progress.o"
+  ],
+  "file": "src/progress.c"
  }
 ]

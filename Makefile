@@ -4,7 +4,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pedantic -std=c2x -O3 \
          -pthread -fopenmp -march=native \
-         -Isrc -Itests/unity
+         -Isrc -Iinclude -Itests/unity
 LDFLAGS =
 
 # ---------------------------------------------------------
