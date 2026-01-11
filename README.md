@@ -17,7 +17,8 @@ File **files.c**
 
 File **images.c**  
    - function `save_bmp`  
-   - function `save_png`
+   - function `save_png`  
+   - function `stb_save_image` using [STB library](https://github.com/nothings/stb)
    
 File **integers.c**  
    - functions `lcm_int` and `gcd_int`

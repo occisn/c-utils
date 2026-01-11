@@ -7,6 +7,53 @@
 #include <string.h>
 #include <time.h>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+
+bool stb_save_image(char *filename,
+                           int height,
+                           int width,
+                           uint8_t **r_array,
+                           uint8_t **g_array,
+                           uint8_t **b_array)
+{
+  const int channels = 3;
+  uint8_t *rgb = malloc(width * height * channels);
+  if (!rgb) {
+    perror("Failed to allocate RGB buffer for saving");
+    return false;
+  }
+
+  for (int y = 0; y < height; ++y) {
+    for (int x = 0; x < width; ++x) {
+      int idx = (y * width + x) * channels;
+      rgb[idx + 0] = r_array[y][x];
+      rgb[idx + 1] = g_array[y][x];
+      rgb[idx + 2] = b_array[y][x];
+    }
+  }
+
+  // stbi_write_bmp(filename, width, height, channels, rgb);
+
+  // stbi_write_png(filename,
+  //                width,
+  //                height,
+  //                channels,
+  //                rgb,
+  //                width * channels);
+
+  const int quality = 90;
+  stbi_write_jpg(filename,
+                 width,
+                 height,
+                 channels,
+                 rgb,
+                 quality);
+
+  free(rgb);
+  return true;
+}
+
 /**
  * Saves RGB image data as a 24-bit BMP file.
  *
