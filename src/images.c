@@ -404,4 +404,92 @@ void save_png(const char *filename, int height, int width,
   fclose(f);
 }
 
+/**
+ * Helper to convert Hue to RGB component
+ */
+static double hue_to_rgb(double p, double q, double t)
+{
+  if (t < 0.0)
+    t += 1.0;
+  if (t > 1.0)
+    t -= 1.0;
+  if (t < (1.0 / 6.0))
+    return p + (q - p) * 6.0 * t;
+  if (t < 0.5)
+    return q;
+  if (t < (2.0 / 3.0))
+    return p + (q - p) * (2.0 / 3.0 - t) * 6.0;
+  return p;
+}
+
+/**
+ * Heatmap Generator
+ * @param height        Image height
+ * @param width         Image width
+ * @param value_array   A pointer to a array of height x width
+ * @param export_file   Filename string
+ */
+bool draw_heatmap_from_values(int height, int width, const double *value_array, const char *export_file)
+{
+  if (height <= 0 || width <= 0 || !value_array)
+    return false;
+
+  // (1) Calculate min, max, and range
+
+  double value_min = value_array[0];
+  double value_max = value_array[0];
+
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width; x++) {
+      double z = value_array[y * width + x];
+      if (z < value_min)
+        value_min = z;
+      if (z > value_max)
+        value_max = z;
+    }
+  }
+
+  double value_range = value_max - value_min;
+
+  // (2) Calculate RGB values
+
+  uint8_t *rgb_image = (uint8_t *)malloc(width * height * 3);
+  if (!rgb_image)
+    return false;
+
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width; x++) {
+
+      double z = value_array[y * width + x];
+      double w = (z - value_min) / value_range;
+
+      double h = (w * 1.2) / 3.6;
+      double s = 1.0;
+      double l = 0.5;
+
+      double q = l + s - l * s;
+      double p = 2.0 * l - q;
+
+      // Calculate flat index for the output buffer
+      int pixel_idx = (y * width + x) * 3;
+      rgb_image[pixel_idx + 0] = (uint8_t)(fmin(255.0, floor(255.0 * hue_to_rgb(p, q, h + 1.0 / 3.0))));
+      rgb_image[pixel_idx + 1] = (uint8_t)(fmin(255.0, floor(255.0 * hue_to_rgb(p, q, h))));
+      rgb_image[pixel_idx + 2] = (uint8_t)(fmin(255.0, floor(255.0 * hue_to_rgb(p, q, h - 1.0 / 3.0))));
+    }
+  }
+
+  // (3) Export to JPG
+  const int quality = 90;
+  const int channels = 3;
+  if (stbi_write_jpg(export_file, width, height, channels, rgb_image, quality) == 0) {
+    perror("Problem in stbi_write_jpg\n");
+    free(rgb_image);
+    return false;
+  }
+
+  free(rgb_image);
+
+  return true;
+}
+
 // end

@@ -18,7 +18,8 @@ File **files.c**
 File **images.c**  
    - function `save_bmp`  
    - function `save_png`  
-   - function `stb_save_image` using [STB library](https://github.com/nothings/stb)
+   - function `stb_save_image` using [STB library](https://github.com/nothings/stb)  
+   - function `draw_heatmap_from_values` using [STB library](https://github.com/nothings/stb)
    
 File **integers.c**  
    - functions `lcm_int` and `gcd_int`
