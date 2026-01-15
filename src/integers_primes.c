@@ -217,7 +217,7 @@ bool SHOW_is_prime_uint64(void)
  * Populate the Sieve of Eratosthenes up to n (exclusive)
  * and counts the number of primes.
  *
- * Array is created by the caller
+ * Array of size n is created by the caller
  *
  * Return true/false if success/failure
  *
