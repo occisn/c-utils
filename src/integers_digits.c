@@ -1,6 +1,8 @@
 #include <assert.h>
 #include "integers_digits.h"
 
+// character in a string to digit : str[i] - '0'
+
 /**
  * Reverse the digits of a non-negative integer.
  *
