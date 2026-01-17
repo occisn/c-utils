@@ -20,7 +20,7 @@ bool stb_save_image(char *filename,
   const int channels = 3;
   uint8_t *rgb = malloc(width * height * channels);
   if (!rgb) {
-    perror("Failed to allocate RGB buffer for saving");
+    fprintf(stderr, "Failed to allocate RGB buffer for saving");
     return false;
   }
 
@@ -79,7 +79,7 @@ void save_bmp(const char *filename, int height, int width, uint8_t **r_array, ui
 {
   FILE *f = fopen(filename, "wb");
   if (f == NULL) {
-    perror("Failed to open file for writing");
+    fprintf(stderr, "Failed to open file for writing");
     return;
   }
 
@@ -482,7 +482,7 @@ bool draw_heatmap_from_values(int height, int width, const double *value_array, 
   const int quality = 90;
   const int channels = 3;
   if (stbi_write_jpg(export_file, width, height, channels, rgb_image, quality) == 0) {
-    perror("Problem in stbi_write_jpg\n");
+    fprintf(stderr, "Problem in stbi_write_jpg\n");
     free(rgb_image);
     return false;
   }

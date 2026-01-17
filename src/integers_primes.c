@@ -64,7 +64,7 @@ bool SHOW_largest_prime_factor_uint64(void)
   const uint64_t n = 10001;
   uint64_t largest_prime_factor = largest_prime_factor_uint64(n);
   if (largest_prime_factor == 0) {
-    perror("Problem in largest_prime_factor.\n");
+    fprintf(stderr, "Problem in largest_prime_factor.\n");
     return false;
   }
   printf("Largest prime factor of %" PRIu64 " is %" PRIu64 ".\n", n, largest_prime_factor_uint64(n));
@@ -161,7 +161,7 @@ bool SHOW_factorize_uint64(void)
   uint64_t *factors = factorize_uint64(n, &count, true);
 
   if (factors == NULL) {
-    perror("Problem in factorize_uint64\n");
+    fprintf(stderr, "Problem in factorize_uint64\n");
     return false;
   }
   printf("%zu prime factor(s) of %" PRIu64 ":\n", count, n);
@@ -253,12 +253,12 @@ bool SHOW_populate_sieve_eratosthenes_uint64(void)
   bool *is_prime = malloc(n * sizeof *is_prime);
 
   if (!is_prime) {
-    perror("Problem in malloc.\n");
+    fprintf(stderr, "Problem in malloc.\n");
     return false;
   }
 
   if (!populate_sieve_eratosthenes_uint64(is_prime, n)) {
-    perror("Problem in populate_sieve_eratosthenes_uint64\n");
+    fprintf(stderr, "Problem in populate_sieve_eratosthenes_uint64\n");
     return false;
   }
 
@@ -295,13 +295,13 @@ bool nth_prime_uint64(uint64_t n, uint64_t *result)
 
   bool *is_prime = malloc(limit * sizeof *is_prime);
   if (is_prime == NULL) {
-    perror("Problem in malloc.\n");
+    fprintf(stderr, "Problem in malloc.\n");
     return false;
   }
 
   // populate sieve
   if (!populate_sieve_eratosthenes_uint64(is_prime, limit)) {
-    perror("Problem in populate_sieve_eratosthenes_uint64.\n");
+    fprintf(stderr, "Problem in populate_sieve_eratosthenes_uint64.\n");
     goto failure;
   }
 
@@ -335,7 +335,7 @@ bool SHOW_nth_prime_uint64(void)
   const uint64_t n = 1000;
   uint64_t nth_prime;
   if (!nth_prime_uint64(n, &nth_prime)) {
-    perror("Problem with nth_prime_uint64\n");
+    fprintf(stderr, "Problem with nth_prime_uint64\n");
     return false;
   }
   printf("%" PRIu64 "-th prime is %" PRIu64 "\n", n, nth_prime);

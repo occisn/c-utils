@@ -14,7 +14,7 @@ bool ensure_directory_exists(char* dir)
 #else
     if (mkdir(dir, 0755) != 0) {
 #endif
-      perror("Failed to create output directory");
+      fprintf(stderr, "Failed to create output directory");
       return false;
     }
     printf("Created output directory: %s\n", dir);
