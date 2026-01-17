@@ -259,6 +259,7 @@ bool SHOW_populate_sieve_eratosthenes_uint64(void)
 
   if (!populate_sieve_eratosthenes_uint64(is_prime, n)) {
     fprintf(stderr, "Problem in populate_sieve_eratosthenes_uint64\n");
+    free(is_prime);
     return false;
   }
 
@@ -325,9 +326,12 @@ bool nth_prime_uint64(uint64_t n, uint64_t *result)
     *result = i;
   }
 
-failure:
   free(is_prime);
   return true;
+
+failure:
+  free(is_prime);
+  return false;
 }
 
 bool SHOW_nth_prime_uint64(void)

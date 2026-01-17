@@ -81,24 +81,42 @@ void* worker_thread(void *arg) {
 // Initialize thread pool
 thread_pool_t* thread_pool_create(int num_threads) {
   thread_pool_t *pool = malloc(sizeof(thread_pool_t));
+  if (!pool) {
+    fprintf(stderr, "Failed to allocate thread pool\n");
+    return NULL;
+  }
+
   pool->num_threads = num_threads;
   pool->threads = malloc(num_threads * sizeof(pthread_t));
+  if (!pool->threads) {
+    fprintf(stderr, "Failed to allocate thread array\n");
+    free(pool);
+    return NULL;
+  }
+
   pool->task_capacity = 1024;
   pool->tasks = malloc(pool->task_capacity * sizeof(task_t));
+  if (!pool->tasks) {
+    fprintf(stderr, "Failed to allocate task array\n");
+    free(pool->threads);
+    free(pool);
+    return NULL;
+  }
+
   pool->task_count = 0;
   pool->next_task = 0;
   pool->completed_tasks = 0;
   pool->shutdown = false;
-  
+
   pthread_mutex_init(&pool->queue_mutex, NULL);
   pthread_cond_init(&pool->queue_cond, NULL);
-  pthread_cond_init(&pool->complete_cond, NULL);  // NEW
-  
+  pthread_cond_init(&pool->complete_cond, NULL);
+
   // Create worker threads
   for (int i = 0; i < num_threads; i++) {
     pthread_create(&pool->threads[i], NULL, worker_thread, pool);
   }
-  
+
   return pool;
 }
 

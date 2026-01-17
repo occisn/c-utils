@@ -252,6 +252,11 @@ void save_png(const char *filename, int height, int width,
     fwrite(data_1, 1, length_1, f);
   //
   uint8_t *tmp_1 = malloc(4 + length_1);
+  if (!tmp_1) {
+    fprintf(stderr, "Failed to allocate tmp_1 in save_png\n");
+    fclose(f);
+    return;
+  }
   memcpy(tmp_1, type_1, 4);
   if (length_1)
     memcpy(tmp_1 + 4, data_1, length_1);
@@ -275,6 +280,11 @@ void save_png(const char *filename, int height, int width,
   size_t row_size = 1 + 3 * width;
   size_t raw_size = row_size * height;
   uint8_t *raw = malloc(raw_size);
+  if (!raw) {
+    fprintf(stderr, "Failed to allocate raw buffer in save_png\n");
+    fclose(f);
+    return;
+  }
 
   for (int y = 0; y < height; y++) {
     raw[y * row_size] = 0; /* filter type 0 */
@@ -289,6 +299,12 @@ void save_png(const char *filename, int height, int width,
   size_t max_blocks = (raw_size + 65534) / 65535;
   size_t zsize = 2 + raw_size + max_blocks * 5 + 4;
   uint8_t *z = malloc(zsize);
+  if (!z) {
+    fprintf(stderr, "Failed to allocate zlib buffer in save_png\n");
+    free(raw);
+    fclose(f);
+    return;
+  }
 
   size_t p = 0;
 
@@ -346,6 +362,13 @@ void save_png(const char *filename, int height, int width,
     fwrite(data_2, 1, length_2, f);
   //
   uint8_t *tmp_2 = malloc(4 + length_2);
+  if (!tmp_2) {
+    fprintf(stderr, "Failed to allocate tmp_2 in save_png\n");
+    free(raw);
+    free(z);
+    fclose(f);
+    return;
+  }
   memcpy(tmp_2, type_2, 4);
   if (length_2)
     memcpy(tmp_2 + 4, data_2, length_2);
@@ -382,6 +405,13 @@ void save_png(const char *filename, int height, int width,
   fwrite(type_3, 1, 4, f);
   //
   uint8_t *tmp_3 = malloc(4 + length_3);
+  if (!tmp_3) {
+    fprintf(stderr, "Failed to allocate tmp_3 in save_png\n");
+    free(raw);
+    free(z);
+    fclose(f);
+    return;
+  }
   memcpy(tmp_3, type_3, 4);
   //
   // crc32:
