@@ -10,7 +10,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
-bool stb_save_image(char *filename,
+bool stb_save_image(const char *filename,
                            int height,
                            int width,
                            uint8_t **r_array,

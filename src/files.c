@@ -5,7 +5,7 @@
 
 /* check that directory exist
 if necessary, try to create it */
-bool ensure_directory_exists(char* dir)
+bool ensure_directory_exists(const char *dir)
 {
   struct stat st = {0};
   if (stat(dir, &st) == -1) {

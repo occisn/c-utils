@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-bool stb_save_image(char *filename,
+bool stb_save_image(const char *filename,
                            int height,
                            int width,
                            uint8_t **r_array,
