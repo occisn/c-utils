@@ -5,7 +5,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pedantic -std=c2x -O3 \
          -pthread -fopenmp -march=native \
          -Isrc -Iinclude -Itests/unity
-LDFLAGS =
+LDFLAGS = -lws2_32
+# Winsock2
 
 # ---------------------------------------------------------
 # DIRECTORIES

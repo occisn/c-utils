@@ -35,6 +35,11 @@ File **integer_primes.c**
    - function `list_of_primes_below_uint64`   
    - function `nth_prime_uint64`
 
+File **ollama.c**  
+   - function `call_ollama1` (simple call, returns answer string)  
+   - function `call_ollama2` (with progress dots and stats)  
+   - Uses Winsock2 raw sockets, no external dependencies
+
 File **parallelism_with_openmp.c**  
    - function `SHOW_parallelism_with_openmp_1` (with reduction)  
    - function `SHOW_parallelism_with_openmp_2` (without reduction)  
@@ -43,10 +48,10 @@ File **parallelism_with_openmp.c**
 File **parallelism_with_threads.c**  
    - function `SHOW_parallelism_with_threads`
 
-File **progress.c**  
-   - function `progress_number`  
+File **progress.c**
+   - function `progress_number`
    - function `progress_bar`
-  
+
 Any comment? Open an [issue](https://github.com/occisn/c-utils/issues), or start a discussion [here](https://github.com/occisn/c-utils/discussions) or [at profile level](https://github.com/occisn/occisn/discussions).
 
 (end of README)
